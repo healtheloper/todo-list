@@ -4,8 +4,8 @@
   "description": "그룹 프로젝트 #1",
   "main": "index.js",
   "scripts": {
-    "build": "webpack -w",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "webpack",
+    "build:watch": "webpack -w"
   },
   "repository": {
     "type": "git",
