@@ -18,6 +18,60 @@ server.use(middlewares);
 server.use(jsonServer.bodyParser);
 
 /**
+ * todo logs controllers
+ */
+const getTodoLogs = async () => {
+  try {
+    await db.read();
+    const todoLogs = db.data.todoLogs;
+    if (!todoLogs) {
+      throw Error("Todo 로그를 찾지 못했습니다.");
+    }
+    return {
+      ok: true,
+      results: todoLogs,
+    };
+  } catch (error) {
+    return {
+      ok: false,
+      message: error.message,
+    };
+  }
+};
+
+const createTodoLogs = async ({ type, oldTodo, newTodo }) => {
+  try {
+    const { id: lastId } = db.data.lastTodoLogsId;
+    const createdAt = getDate();
+    const updatedAt = createdAt;
+    const logsData = { newTodo };
+    if (type === "move") {
+      logsData.oldTodo = oldTodo;
+    }
+
+    const newTodoLogs = {
+      id: lastId + 1,
+      type,
+      ...logsData,
+      createdAt,
+      updatedAt,
+    };
+
+    db.data.todoLogs.push(newTodoLogs);
+
+    db.data.lastTodoLogsId = { id: lastId + 1 };
+    return {
+      ok: true,
+      results: newTodoLogs,
+    };
+  } catch (error) {
+    return {
+      ok: false,
+      message: error.message,
+    };
+  }
+};
+/**
  * todo controllers
  */
 const getTodos = async () => {
@@ -79,6 +133,7 @@ const postTodoCreate = async ({ title, desc, author, column }) => {
     db.data.todo.push(newTodo);
 
     db.data.lastTodoId = { id: lastId + 1 };
+    await createTodoLogs({ type: "create", newTodo });
     await db.write();
 
     return {
@@ -93,11 +148,12 @@ const postTodoCreate = async ({ title, desc, author, column }) => {
   }
 };
 
-const deleteTodoById = async (id) => {
+const deleteTodoById = async ({ id, logging = true }) => {
   try {
     await db.read();
 
-    const { ok } = await getTodoById(id);
+    const { ok, results: deletedTodo } = await getTodoById(id);
+    console.log(ok, deletedTodo);
     if (!ok) {
       throw Error("해당하는 ID의 Todo 가 없습니다.");
     }
@@ -105,6 +161,9 @@ const deleteTodoById = async (id) => {
     const newTodo = todos.filter((todo) => todo.id !== +id);
     db.data.todo = newTodo;
 
+    if (logging) {
+      await createTodoLogs({ type: "delete", newTodo: deletedTodo });
+    }
     await db.write();
 
     return {
@@ -118,6 +177,7 @@ const deleteTodoById = async (id) => {
     };
   }
 };
+
 const putTodoById = async (id, updatedData) => {
   try {
     await db.read();
@@ -126,7 +186,7 @@ const putTodoById = async (id, updatedData) => {
     if (!isTodoGet) {
       throw Error("해당하는 ID의 Todo 가 없습니다.");
     }
-    const { ok: isTodoDeleted } = await deleteTodoById(id);
+    const { ok: isTodoDeleted } = await deleteTodoById({ id, logging: false });
     if (!isTodoDeleted) {
       throw Error("Todo 를 삭제할 수 없습니다.");
     }
@@ -140,6 +200,12 @@ const putTodoById = async (id, updatedData) => {
 
     db.data.todo.push(newTodo);
 
+    if (updatedData.column) {
+      await createTodoLogs({ type: "move", oldTodo: todo, newTodo });
+    } else {
+      await createTodoLogs({ type: "update", newTodo });
+    }
+
     await db.write();
 
     return {
@@ -154,6 +220,13 @@ const putTodoById = async (id, updatedData) => {
   }
 };
 
+/**
+ * todo logs routes
+ */
+server.get("/todo/logs", async (req, res) => {
+  const sendData = await getTodoLogs();
+  res.send(sendData);
+});
 /**
  * todo routes
  */
@@ -180,7 +253,7 @@ server.delete("/todo/:id", async (req, res) => {
   const {
     params: { id },
   } = req;
-  const sendData = await deleteTodoById(id);
+  const sendData = await deleteTodoById({ id });
   res.send(sendData);
 });
 
