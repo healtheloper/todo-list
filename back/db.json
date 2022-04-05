@@ -1,4 +1,20 @@
 {
-  "todo": [],
+  "lastTodoId": {
+    "id": 1
+  },
+  "lastColumnId": {
+    "id": 0
+  },
+  "todo": [
+    {
+      "id": 1,
+      "title": "모던 자바스크립트 예제 실습",
+      "desc": "2장 예제 내용 실습 후, 커밋까지",
+      "author": "파크",
+      "column": 1,
+      "createdAt": "2022-04-05 06:40:19",
+      "updatedAt": "2022-04-05 06:40:19"
+    }
+  ],
   "column": []
 }

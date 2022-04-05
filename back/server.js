@@ -1,20 +1,26 @@
-const { getDate } = require("./utils");
-const jsonServer = require("json-server");
+import { join, dirname } from "path";
+import { getDate } from "./utils.js";
+import jsonServer from "json-server";
+import { Low, JSONFile } from "lowdb";
+import { fileURLToPath } from "url";
+
 const server = jsonServer.create();
 const router = jsonServer.router("db.json");
 const middlewares = jsonServer.defaults();
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
-const low = require("lowdb");
-const FileSync = require("lowdb/adapters/FileSync");
-const adapter = new FileSync("db.json");
-const db = low(adapter);
+const adapter = new JSONFile(join(__dirname, "db.json"));
+const db = new Low(adapter);
 
 const PORT = process.env.PORT || 3000;
 
 server.use(middlewares);
 server.use(jsonServer.bodyParser);
 
-server.post("/todo/create", (req, res) => {
+server.post("/todo/create", async (req, res) => {
+  await db.read();
+  const { id: lastId } = db.data.lastTodoId;
+
   const {
     body: { title, desc, author, column },
   } = req;
@@ -22,17 +28,27 @@ server.post("/todo/create", (req, res) => {
   const createdAt = getDate();
   const updatedAt = createdAt;
 
-  res.send(
-    db.get("todo").push({
-      title,
-      desc,
-      author,
-      column,
-      createdAt,
-      updatedAt,
-    })
-  );
+  const newTodo = db.data.todo.push({
+    id: lastId + 1,
+    title,
+    desc,
+    author,
+    column,
+    createdAt,
+    updatedAt,
+  });
+
+  if (!newTodo) {
+    throw Error("push 에러");
+  }
+
+  db.data.lastTodoId = { id: lastId + 1 };
+  await db.write();
+  res.send({
+    ok: true,
+  });
 });
+
 server.get("/todo/:id", (req, res) => {
   const {
     params: { id },
