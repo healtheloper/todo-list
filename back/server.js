@@ -92,6 +92,68 @@ const postTodoCreate = async ({ title, desc, author, column }) => {
     };
   }
 };
+
+const deleteTodoById = async (id) => {
+  try {
+    await db.read();
+
+    const { ok } = await getTodoById(id);
+    if (!ok) {
+      throw Error("해당하는 ID의 Todo 가 없습니다.");
+    }
+    const { results: todos } = await getTodos();
+    const newTodo = todos.filter((todo) => todo.id !== +id);
+    db.data.todo = newTodo;
+
+    await db.write();
+
+    return {
+      ok: true,
+      results: newTodo,
+    };
+  } catch (error) {
+    return {
+      ok: false,
+      message: error.message,
+    };
+  }
+};
+const putTodoById = async (id, updatedData) => {
+  try {
+    await db.read();
+
+    const { ok: isTodoGet, results: todo } = await getTodoById(id);
+    if (!isTodoGet) {
+      throw Error("해당하는 ID의 Todo 가 없습니다.");
+    }
+    const { ok: isTodoDeleted } = await deleteTodoById(id);
+    if (!isTodoDeleted) {
+      throw Error("Todo 를 삭제할 수 없습니다.");
+    }
+    const updatedAt = getDate();
+
+    const newTodo = {
+      ...todo,
+      updatedAt,
+      ...updatedData,
+    };
+
+    db.data.todo.push(newTodo);
+
+    await db.write();
+
+    return {
+      ok: true,
+      results: newTodo,
+    };
+  } catch (error) {
+    return {
+      ok: false,
+      message: error.message,
+    };
+  }
+};
+
 /**
  * todo routes
  */
@@ -111,6 +173,23 @@ server.get("/todo/:id", async (req, res) => {
     params: { id },
   } = req;
   const sendData = await getTodoById(id);
+  res.send(sendData);
+});
+
+server.delete("/todo/:id", async (req, res) => {
+  const {
+    params: { id },
+  } = req;
+  const sendData = await deleteTodoById(id);
+  res.send(sendData);
+});
+
+server.put("/todo/:id", async (req, res) => {
+  const {
+    params: { id },
+    body,
+  } = req;
+  const sendData = await putTodoById(id, body);
   res.send(sendData);
 });
 
