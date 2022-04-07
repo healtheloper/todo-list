@@ -1,10 +1,10 @@
-import Todo from "../models/Todo";
+import Column from "../models/Column";
 import { getDate, dataTemplate } from "../common/utils";
 
-export const getTodo = async (req, res) => {
+export const getColumn = async (req, res) => {
   try {
-    const todos = await Todo.find();
-    res.send(dataTemplate(todos));
+    const columns = await Column.find();
+    res.send(dataTemplate(columns));
   } catch (error) {
     res.send({
       ok: false,
@@ -13,22 +13,19 @@ export const getTodo = async (req, res) => {
   }
 };
 
-export const postTodoCreate = async (req, res) => {
+export const postColumnCreate = async (req, res) => {
   try {
     const {
-      body: { title, desc, author, columnId },
+      body: { title },
     } = req;
     const createdAt = getDate();
     const updatedAt = createdAt;
-    const newTodo = await Todo.create({
+    const newColumn = await Column.create({
       title,
-      desc,
-      author,
-      columnId,
       createdAt,
       updatedAt,
     });
-    res.send(dataTemplate(newTodo));
+    res.send(dataTemplate(newColumn));
   } catch (error) {
     res.send({
       ok: false,
