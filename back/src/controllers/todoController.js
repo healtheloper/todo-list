@@ -61,3 +61,19 @@ export const postTodoCreate = async (req, res) => {
     });
   }
 };
+
+export const deleteTodoById = async (req, res) => {
+  try {
+    const {
+      params: { id },
+    } = req;
+
+    const deletedTodo = await Todo.findByIdAndRemove(id);
+    res.send(dataTemplate(deletedTodo));
+  } catch (error) {
+    res.send({
+      ok: false,
+      error: error.message,
+    });
+  }
+};
