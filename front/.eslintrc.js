@@ -12,7 +12,12 @@ module.exports = {
     "plugin:import/recommended",
   ],
   rules: {
-    "prettier/prettier": "error",
+    "prettier/prettier": [
+      "error",
+      {
+        endOfLine: "auto",
+      },
+    ],
     "import/order": [
       "error",
       {
@@ -30,5 +35,8 @@ module.exports = {
         "newlines-between": "always",
       },
     ],
+    "no-bitwise": "off",
+    "consistent-return": "off",
+    "import/prefer-default-export": "off",
   },
 };
