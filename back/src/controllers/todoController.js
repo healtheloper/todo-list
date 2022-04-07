@@ -77,3 +77,24 @@ export const deleteTodoById = async (req, res) => {
     });
   }
 };
+
+export const updateTodoById = async (req, res) => {
+  try {
+    const {
+      params: { id },
+      body,
+    } = req;
+
+    const isTodoExist = await Todo.exists({ _id: id });
+    if (!isTodoExist) {
+      throw Error("해당 Todo 가 없습니다.");
+    }
+    const updatedTodo = await Todo.findByIdAndUpdate(id, body);
+    res.send(dataTemplate(updatedTodo));
+  } catch (error) {
+    res.send({
+      ok: false,
+      error: error.message,
+    });
+  }
+};
