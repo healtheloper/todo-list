@@ -1,43 +1,4 @@
-import { join, dirname } from "path";
-import { getDate } from "./utils.js";
-import jsonServer from "json-server";
-import { Low, JSONFile } from "lowdb";
-import { fileURLToPath } from "url";
-import { LOG_TYPE, TABLE_NAME } from "./constants.js";
-const server = jsonServer.create();
-const router = jsonServer.router("db.json");
-const middlewares = jsonServer.defaults();
-const __dirname = dirname(fileURLToPath(import.meta.url));
-
-const adapter = new JSONFile(join(__dirname, "db.json"));
-const db = new Low(adapter);
-
-const PORT = process.env.PORT || 3000;
-
-server.use(middlewares);
-server.use(jsonServer.bodyParser);
-
-/**
- * todo logs controllers
- */
-const getTodoLogs = async () => {
-  try {
-    await db.read();
-    const todoLogs = db.data[TABLE_NAME.TODO_LOGS];
-    if (!todoLogs) {
-      throw Error("DB에 Todo 로그 테이블이 없습니다.");
-    }
-    return {
-      ok: true,
-      results: todoLogs,
-    };
-  } catch (error) {
-    return {
-      ok: false,
-      message: error.message,
-    };
-  }
-};
+import { LOG_TYPE, TABLE_NAME } from "../common/constants.js";
 
 const createTodoLogs = async ({ type, oldTodo, newTodo }) => {
   try {
@@ -73,10 +34,8 @@ const createTodoLogs = async ({ type, oldTodo, newTodo }) => {
     };
   }
 };
-/**
- * todo controllers
- */
-const getTodos = async () => {
+
+export const getTodos = async () => {
   try {
     await db.read();
     const todos = db.data[TABLE_NAME.TODO];
@@ -95,7 +54,7 @@ const getTodos = async () => {
   }
 };
 
-const getTodoById = async ({ id }) => {
+export const getTodoById = async ({ id }) => {
   try {
     const { results: todos } = await getTodos();
     const todo = todos.find((todo) => todo.id === Number(id));
@@ -114,7 +73,7 @@ const getTodoById = async ({ id }) => {
   }
 };
 
-const postTodoCreate = async ({
+export const postTodoCreate = async ({
   createData: { title, desc, author, columnId },
 }) => {
   try {
@@ -155,7 +114,7 @@ const postTodoCreate = async ({
   }
 };
 
-const deleteTodoById = async ({ id, isloggable = true }) => {
+export const deleteTodoById = async ({ id, isloggable = true }) => {
   try {
     await db.read();
 
@@ -185,7 +144,7 @@ const deleteTodoById = async ({ id, isloggable = true }) => {
   }
 };
 
-const patchTodoById = async ({ id, updatedData }) => {
+export const patchTodoById = async ({ id, updatedData }) => {
   try {
     await db.read();
 
@@ -236,55 +195,3 @@ const patchTodoById = async ({ id, updatedData }) => {
     };
   }
 };
-
-/**
- * todo logs routes
- */
-server.get("/todo/logs", async (req, res) => {
-  const sendData = await getTodoLogs();
-  res.send(sendData);
-});
-/**
- * todo routes
- */
-server.post("/todo/create", async (req, res) => {
-  const { body } = req;
-  const sendData = await postTodoCreate({ createData: body });
-  res.send(sendData);
-});
-
-server.get("/todo", async (req, res) => {
-  const sendData = await getTodos();
-  res.send(sendData);
-});
-
-server.get("/todo/:id", async (req, res) => {
-  const {
-    params: { id },
-  } = req;
-  const sendData = await getTodoById({ id });
-  res.send(sendData);
-});
-
-server.delete("/todo/:id", async (req, res) => {
-  const {
-    params: { id },
-  } = req;
-  const sendData = await deleteTodoById({ id });
-  res.send(sendData);
-});
-
-server.patch("/todo/:id", async (req, res) => {
-  const {
-    params: { id },
-    body,
-  } = req;
-  const sendData = await patchTodoById({ id, body });
-  res.send(sendData);
-});
-
-server.use(router);
-
-server.listen(PORT, () => {
-  console.log(`✅ JSON server is listening on ${PORT}`);
-});

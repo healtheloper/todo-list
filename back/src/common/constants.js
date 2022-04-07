@@ -11,3 +11,5 @@ export const TABLE_NAME = {
   COLUMN: "column",
   LAST_ID: "lastId",
 };
+
+export const API_URL = (PORT) => `http://localhost:${PORT}/`;
