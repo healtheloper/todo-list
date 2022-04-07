@@ -3,7 +3,10 @@ module.exports = {
   parserOptions: {
     requireConfigFile: false,
   },
-  extends: ["airbnb-base", "prettier"],
+  env: {
+    browser: true,
+  },
+  extends: ["airbnb-base", "plugin:prettier/recommended"],
   rules: {
     "prettier/prettier": "error",
   },
