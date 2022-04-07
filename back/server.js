@@ -98,7 +98,7 @@ const getTodos = async () => {
 const getTodoById = async ({ id }) => {
   try {
     const { results: todos } = await getTodos();
-    const todo = todos.find((todo) => todo.id === +id);
+    const todo = todos.find((todo) => todo.id === Number(id));
     if (!todo) {
       throw Error("Todo 를 찾지 못했습니다.");
     }
