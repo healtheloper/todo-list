@@ -2,7 +2,7 @@
   "lastId": [
     {
       "table": "todo",
-      "id": 1
+      "id": 0
     },
     {
       "table": "column",
@@ -10,36 +10,10 @@
     },
     {
       "table": "todoLogs",
-      "id": 1
+      "id": 0
     }
   ],
-  "todo": [
-    {
-      "id": 1,
-      "title": "모던 자바스크립트 예제 실습",
-      "desc": "1장",
-      "author": "비비",
-      "column": 1,
-      "createdAt": "2022-04-07 08:40:16",
-      "updatedAt": "2022-04-07 08:40:16"
-    }
-  ],
+  "todo": [],
   "column": [],
-  "todoLogs": [
-    {
-      "id": 1,
-      "type": "create",
-      "newTodo": {
-        "id": 1,
-        "title": "모던 자바스크립트 예제 실습",
-        "desc": "1장",
-        "author": "비비",
-        "column": 1,
-        "createdAt": "2022-04-07 08:40:16",
-        "updatedAt": "2022-04-07 08:40:16"
-      },
-      "createdAt": "2022-04-07 08:40:16",
-      "updatedAt": "2022-04-07 08:40:16"
-    }
-  ]
+  "todoLogs": []
 }

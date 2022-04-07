@@ -185,7 +185,7 @@ const deleteTodoById = async ({ id, isloggable = true }) => {
   }
 };
 
-const putTodoById = async (id, updatedData) => {
+const patchTodoById = async (id, updatedData) => {
   try {
     await db.read();
 
@@ -267,12 +267,12 @@ server.delete("/todo/:id", async (req, res) => {
   res.send(sendData);
 });
 
-server.put("/todo/:id", async (req, res) => {
+server.patch("/todo/:id", async (req, res) => {
   const {
     params: { id },
     body,
   } = req;
-  const sendData = await putTodoById(id, body);
+  const sendData = await patchTodoById(id, body);
   res.send(sendData);
 });
 
