@@ -3,7 +3,7 @@ import { getDate } from "./utils.js";
 import jsonServer from "json-server";
 import { Low, JSONFile } from "lowdb";
 import { fileURLToPath } from "url";
-
+import { LOG_TYPE, TABLE_NAME } from "./constants.js";
 const server = jsonServer.create();
 const router = jsonServer.router("db.json");
 const middlewares = jsonServer.defaults();
@@ -41,14 +41,18 @@ const getTodoLogs = async () => {
 
 const createTodoLogs = async ({ type, oldTodo, newTodo }) => {
   try {
-    const { id: lastId } = db.data.lastTodoLogsId;
+    const lastIds = db.data.lastId;
+    const lastIdObject = lastIds.find(
+      ({ table }) => table === TABLE_NAME.TODO_LOGS
+    );
+    const { id: lastId } = lastIdObject;
+
     const createdAt = getDate();
     const updatedAt = createdAt;
     const logsData = { newTodo };
-    if (type === "move") {
+    if (type === LOG_TYPE.MOVE) {
       logsData.oldTodo = oldTodo;
     }
-
     const newTodoLogs = {
       id: lastId + 1,
       type,
@@ -58,8 +62,8 @@ const createTodoLogs = async ({ type, oldTodo, newTodo }) => {
     };
 
     db.data.todoLogs.push(newTodoLogs);
+    lastIdObject.id = lastId + 1;
 
-    db.data.lastTodoLogsId = { id: lastId + 1 };
     return {
       ok: true,
       results: newTodoLogs,
@@ -112,11 +116,14 @@ const getTodoById = async (id) => {
   }
 };
 
-const postTodoCreate = async ({ title, desc, author, column }) => {
+const postTodoCreate = async ({ title, desc, author, columnId }) => {
   try {
     await db.read();
 
-    const { id: lastId } = db.data.lastTodoId;
+    const lastIds = db.data.lastId;
+    const lastIdObject = lastIds.find(({ table }) => table === TABLE_NAME.TODO);
+    const { id: lastId } = lastIdObject;
+
     const createdAt = getDate();
     const updatedAt = createdAt;
 
@@ -125,14 +132,14 @@ const postTodoCreate = async ({ title, desc, author, column }) => {
       title,
       desc,
       author,
-      column,
+      columnId,
       createdAt,
       updatedAt,
     };
 
     db.data.todo.push(newTodo);
+    lastIdObject.id = lastId + 1;
 
-    db.data.lastTodoId = { id: lastId + 1 };
     await createTodoLogs({ type: "create", newTodo });
     await db.write();
 
@@ -200,7 +207,7 @@ const putTodoById = async (id, updatedData) => {
 
     db.data.todo.push(newTodo);
 
-    if (updatedData.column) {
+    if (updatedData.columnId) {
       await createTodoLogs({ type: "move", oldTodo: todo, newTodo });
     } else {
       await createTodoLogs({ type: "update", newTodo });
