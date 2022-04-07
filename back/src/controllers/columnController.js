@@ -33,3 +33,5 @@ export const postColumnCreate = async (req, res) => {
     });
   }
 };
+
+export const deleteColumnDelete = async () => {};
