@@ -9,4 +9,5 @@ export const TABLE_NAME = {
   TODO: "todo",
   TODO_LOGS: "todoLogs",
   COLUMN: "column",
+  LAST_ID: "lastId",
 };
