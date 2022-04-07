@@ -155,12 +155,12 @@ const postTodoCreate = async ({ title, desc, author, columnId }) => {
   }
 };
 
-const deleteTodoById = async ({ id, logging = true }) => {
+const deleteTodoById = async ({ id, isloggable = true }) => {
   try {
     await db.read();
 
     const { ok, results: deletedTodo } = await getTodoById(id);
-    console.log(ok, deletedTodo);
+
     if (!ok) {
       throw Error("해당하는 ID의 Todo 가 없습니다.");
     }
@@ -168,7 +168,7 @@ const deleteTodoById = async ({ id, logging = true }) => {
     const newTodo = todos.filter((todo) => todo.id !== +id);
     db.data.todo = newTodo;
 
-    if (logging) {
+    if (isloggable) {
       await createTodoLogs({ type: "delete", newTodo: deletedTodo });
     }
     await db.write();
@@ -193,7 +193,10 @@ const putTodoById = async (id, updatedData) => {
     if (!isTodoGet) {
       throw Error("해당하는 ID의 Todo 가 없습니다.");
     }
-    const { ok: isTodoDeleted } = await deleteTodoById({ id, logging: false });
+    const { ok: isTodoDeleted } = await deleteTodoById({
+      id,
+      isloggable: false,
+    });
     if (!isTodoDeleted) {
       throw Error("Todo 를 삭제할 수 없습니다.");
     }
