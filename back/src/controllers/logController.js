@@ -1,17 +1,10 @@
 import TodoLog from "../models/TodoLog";
-import { dataTemplate, getDate } from "../common/utils";
+import { getDate, sendMethodResult } from "../common/utils";
 
-export const getTodoLog = async (req, res) => {
-  try {
-    const todos = await TodoLog.find();
-    res.send(dataTemplate(todos));
-  } catch (error) {
-    res.send({
-      ok: false,
-      message: error.message,
-    });
-  }
-};
+export const getTodoLog = sendMethodResult(async () => {
+  const todos = await TodoLog.find();
+  return todos;
+});
 
 export const createTodoLog = async ({ type, logData }) => {
   try {
