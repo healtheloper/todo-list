@@ -1,9 +1,8 @@
-export const getDate = () => {
-  return new Date().toISOString().replace("T", " ").substring(0, 19);
-};
+export const getDate = () =>
+  new Date().toISOString().replace("T", " ").substring(0, 19);
 
 export const sendMethodResult = (callback) => {
-  return async function (req, res) {
+  const method = async (req, res) => {
     try {
       const results = await callback(req, res);
       res.send({
@@ -17,4 +16,5 @@ export const sendMethodResult = (callback) => {
       });
     }
   };
+  return method;
 };

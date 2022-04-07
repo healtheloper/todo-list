@@ -4,7 +4,6 @@ const todoLogSchema = new mongoose.Schema({
   title: String,
   todoId: { type: mongoose.Schema.Types.ObjectId },
   type: String,
-  title: String,
   desc: String,
   author: String,
   columnId: String,

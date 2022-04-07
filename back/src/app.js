@@ -1,8 +1,9 @@
 import bodyParser from "body-parser";
 import express from "express";
-import todoRouter from "./routers/todoRouter";
+
 import columnRouter from "./routers/columnRouter";
 import logRouter from "./routers/logRouter";
+import todoRouter from "./routers/todoRouter";
 
 const app = express();
 app.use(bodyParser.json());

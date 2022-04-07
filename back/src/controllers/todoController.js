@@ -1,6 +1,6 @@
-import Todo from "../models/Todo";
-import { getDate, sendMethodResult } from "../common/utils";
 import { LOG_TYPE } from "../common/constants";
+import { getDate, sendMethodResult } from "../common/utils";
+import Todo from "../models/Todo";
 import { createTodoLog } from "./logController";
 
 export const getTodos = sendMethodResult(async () => {
@@ -22,7 +22,7 @@ export const getTodoById = sendMethodResult(async (req) => {
   return todo;
 });
 
-export const postTodoCreate = sendMethodResult(async (req, res) => {
+export const postTodoCreate = sendMethodResult(async (req) => {
   const { body } = req;
   const createdAt = getDate();
   const updatedAt = createdAt;
@@ -47,7 +47,7 @@ export const postTodoCreate = sendMethodResult(async (req, res) => {
   return newTodo;
 });
 
-export const deleteTodoById = sendMethodResult(async (req, res) => {
+export const deleteTodoById = sendMethodResult(async (req) => {
   const {
     params: { id },
   } = req;
@@ -67,7 +67,7 @@ export const deleteTodoById = sendMethodResult(async (req, res) => {
   return deletedTodo;
 });
 
-export const updateTodoById = sendMethodResult(async (req, res) => {
+export const updateTodoById = sendMethodResult(async (req) => {
   const {
     params: { id },
     body,

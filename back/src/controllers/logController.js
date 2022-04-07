@@ -1,5 +1,5 @@
-import TodoLog from "../models/TodoLog";
 import { getDate, sendMethodResult } from "../common/utils";
+import TodoLog from "../models/TodoLog";
 
 export const getTodoLog = sendMethodResult(async () => {
   const todos = await TodoLog.find();

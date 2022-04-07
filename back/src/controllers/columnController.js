@@ -1,12 +1,12 @@
-import Column from "../models/Column";
 import { getDate, sendMethodResult } from "../common/utils";
+import Column from "../models/Column";
 
-export const getColumn = sendMethodResult(async (req, res) => {
+export const getColumn = sendMethodResult(async () => {
   const columns = await Column.find();
   return columns;
 });
 
-export const postColumnCreate = sendMethodResult(async (req, res) => {
+export const postColumnCreate = sendMethodResult(async (req) => {
   const {
     body: { title },
   } = req;
