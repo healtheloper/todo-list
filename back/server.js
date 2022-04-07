@@ -97,7 +97,7 @@ const getTodos = async () => {
   }
 };
 
-const getTodoById = async (id) => {
+const getTodoById = async ({ id }) => {
   try {
     const { results: todos } = await getTodos();
     const todo = todos.find((todo) => todo.id === +id);
@@ -116,7 +116,9 @@ const getTodoById = async (id) => {
   }
 };
 
-const postTodoCreate = async ({ title, desc, author, columnId }) => {
+const postTodoCreate = async ({
+  createData: { title, desc, author, columnId },
+}) => {
   try {
     await db.read();
 
@@ -185,7 +187,7 @@ const deleteTodoById = async ({ id, isloggable = true }) => {
   }
 };
 
-const patchTodoById = async (id, updatedData) => {
+const patchTodoById = async ({ id, updatedData }) => {
   try {
     await db.read();
 
@@ -242,7 +244,7 @@ server.get("/todo/logs", async (req, res) => {
  */
 server.post("/todo/create", async (req, res) => {
   const { body } = req;
-  const sendData = await postTodoCreate(body);
+  const sendData = await postTodoCreate({ createData: body });
   res.send(sendData);
 });
 
@@ -255,7 +257,7 @@ server.get("/todo/:id", async (req, res) => {
   const {
     params: { id },
   } = req;
-  const sendData = await getTodoById(id);
+  const sendData = await getTodoById({ id });
   res.send(sendData);
 });
 
@@ -272,7 +274,7 @@ server.patch("/todo/:id", async (req, res) => {
     params: { id },
     body,
   } = req;
-  const sendData = await patchTodoById(id, body);
+  const sendData = await patchTodoById({ id, body });
   res.send(sendData);
 });
 
