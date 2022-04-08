@@ -9,13 +9,6 @@ module.exports = {
       "error",
       {
         groups: ["builtin", "external", "internal", "index"],
-        pathGroups: [
-          {
-            pattern: "angular",
-            group: "external",
-            position: "before",
-          },
-        ],
         alphabetize: {
           order: "asc",
           caseInsensitive: true,
