@@ -1,14 +1,14 @@
-@import "./reset";
+@import "./reset.css";
 @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500&display=swap");
 
-// color
-$text-color: #010101;
-$dark-gray: #bdbdbd;
-
-$padding-top: 30px;
-$padding-left: 80px;
-$title-height: 32px;
-$cards-header: 56px;
+:root {
+  --text-color: #010101;
+  --dark-gray: #bdbdbd;
+  -padding-top: 30px;
+  -padding-left: 80px;
+  -title-height: 32px;
+  -cards-header: 56px;
+}
 
 * {
   box-sizing: border-box;
@@ -16,20 +16,17 @@ $cards-header: 56px;
 
 .wrap {
   font-family: "Noto Sans KR", sans-serif;
-  color: $text-color;
+  color: var(--text-color);
   display: flex;
 }
 
-.todolist-area {
-  // 로그 확인용
-  // width: 50%;
+.todolistArea {
   width: 1200px;
   height: 100vh;
-
   background: #f5f5f7;
 }
 
-.header-title-area {
+.headerTitleArea {
   padding: 30px 80px;
   display: flex;
   justify-content: space-between;
@@ -37,7 +34,7 @@ $cards-header: 56px;
   .title {
     font-weight: 400;
     font-size: 32px;
-    color: $text-color;
+    color: var(--text-color);
   }
 }
 
@@ -74,7 +71,7 @@ $cards-header: 56px;
       height: 26px;
       line-height: 26px;
       text-align: center;
-      background-color: $dark-gray;
+      background-color: var(--dark-gray);
       border-radius: 100%;
     }
 
@@ -130,7 +127,7 @@ $cards-header: 56px;
     display: block;
     font-weight: 400;
     font-size: 12px;
-    color: $dark-gray;
+    color: var(--dark-gray);
   }
 
   .buttons {
@@ -203,7 +200,7 @@ $cards-header: 56px;
   width: 450px;
   height: 100vh;
   display: none;
-  padding: $padding-top;
+  padding: var(--padding-top);
 
   &.active {
     display: block;
@@ -242,7 +239,7 @@ $cards-header: 56px;
     .time {
       font-weight: 400;
       font-size: 14px;
-      color: $dark-gray;
+      color: var(--dark-gray);
     }
   }
 }
