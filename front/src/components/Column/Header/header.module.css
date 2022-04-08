@@ -29,6 +29,6 @@
   align-items: center;
 }
 
-.buttonArea:nth-child(2n-1) {
+.buttonArea :not(:last-child) {
   margin-right: 10px;
 }
