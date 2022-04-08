@@ -4,10 +4,7 @@
 :root {
   --text-color: #010101;
   --dark-gray: #bdbdbd;
-  -padding-top: 30px;
-  -padding-left: 80px;
-  -title-height: 32px;
-  -cards-header: 56px;
+  --padding-top: 30px;
 }
 
 * {
