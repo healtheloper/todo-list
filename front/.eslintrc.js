@@ -21,12 +21,13 @@ module.exports = {
     "import/order": [
       "error",
       {
-        groups: [
-          "builtin",
-          "external",
-          "internal",
-          ["parent", "sibling"],
-          "index",
+        groups: ["builtin", "external", "internal", "index"],
+        pathGroups: [
+          {
+            pattern: "angular",
+            group: "external",
+            position: "before",
+          },
         ],
         alphabetize: {
           order: "asc",
