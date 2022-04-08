@@ -31,7 +31,7 @@ const peact = (function () {
   };
 
   const useState = (defaultValue) => {
-    const currentStateKey = info.currentStateKey;
+    const { currentStateKey } = info;
     const isNewUseState = Object.values(info.state).length === currentStateKey;
     if (isNewUseState) {
       info.state[currentStateKey] = defaultValue;
