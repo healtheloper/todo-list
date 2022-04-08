@@ -1,12 +1,13 @@
 import styles from "./App.module.css";
 
 console.log(styles);
+
 const App = () => {
   return `
     <div class="${styles.wrap}">
-        <div class="todolist-area">
-            <header class="header-title-area">
-            <h1 class="title">TO-DO LIST</h1>
+        <div class="${styles.todolistArea}">
+            <header class="${styles.headerTitleArea}">
+            <h1 class="${styles.title}">TO-DO LIST</h1>
             <div class="menu">
                 <svg
                 width="17"
