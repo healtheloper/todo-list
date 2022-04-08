@@ -1,4 +1,5 @@
 import styles from "./App.module.css";
+import Actions from "./components/Actions/Actions";
 import Header from "./components/Header/Header";
 import Main from "./components/Main";
 
@@ -9,7 +10,7 @@ const App = () => {
             ${Header()}
             ${Main()}
         </div>
-        <div class="log-area active"></div>
+        ${Actions()}
     </div>
   `;
 };

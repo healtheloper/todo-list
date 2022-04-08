@@ -1,6 +1,6 @@
-import Header from "./Header/Header";
 import Cards from "./Cards/Cards";
 import styles from "./column.module.css";
+import Header from "./Header/Header";
 
 const Column = () => {
   return `
