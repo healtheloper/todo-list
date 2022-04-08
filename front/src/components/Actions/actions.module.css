@@ -3,6 +3,7 @@
   height: 100vh;
   display: none;
   padding: var(--padding-top);
+  transition: all 1s;
 }
 
 .active {
@@ -11,6 +12,7 @@
 
 .menu {
   display: flex;
+  cursor: pointer;
   justify-content: end;
   margin-bottom: 18px;
 }

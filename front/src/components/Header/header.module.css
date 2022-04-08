@@ -9,3 +9,7 @@
   font-size: 32px;
   color: var(--text-color);
 }
+
+.menu {
+  cursor: pointer;
+}

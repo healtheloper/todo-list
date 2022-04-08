@@ -1,10 +1,12 @@
 import Action from "./Action/Action";
 import styles from "./actions.module.css";
 
-const Actions = () => {
+const Actions = ({ display }) => {
+  const actionsDisplay = display === "visible" ? styles.active : "";
+
   return `
-    <div class="${styles.actions} ${styles.active}">
-      <div class="${styles.menu}">
+    <div class="${styles.actions} ${actionsDisplay}">    
+      <button class="${styles.menu}">
         <svg
           width="12"
           height="12"
@@ -17,7 +19,7 @@ const Actions = () => {
             fill="#010101"
           />
         </svg>
-      </div>
+      </button>
       <div class="${styles.actionWrap}">
         ${Action()}
         ${Action()}
