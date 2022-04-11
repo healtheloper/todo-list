@@ -1,10 +1,32 @@
 import express from "express";
 
-import { getColumn, postColumnCreate } from "../controllers/columnController";
+import { getColumns, postColumnCreate } from "../controllers/columnController";
 
 const columnRouter = express.Router();
 
-columnRouter.get("/", getColumn);
+/**
+ * @swagger
+ *  /column:
+ *    get:
+ *      summary: "전체 Column 검색"
+ *      tags: [Column]
+ *      responses:
+ *        "200":
+ *          description: 전체 Column 검색
+ *          content:
+ *            application/json:
+ *              schema:
+ *                type: object
+ *                properties:
+ *                  ok:
+ *                    type: boolean
+ *                  results:
+ *                    type: array
+ *                    items:
+ *                      $ref: '#/components/schemas/Column'
+ */
+columnRouter.get("/", getColumns);
+
 columnRouter.post("/create", postColumnCreate);
 
 export default columnRouter;
