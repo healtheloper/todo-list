@@ -1,6 +1,6 @@
 import styles from "./card.module.css";
 
-const Card = () => {
+const Card = ({ column, todos }) => {
   return `
     <form class="${styles.card}" draggable="true">
       <div class="${styles.headerArea}">
