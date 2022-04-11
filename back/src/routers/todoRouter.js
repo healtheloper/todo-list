@@ -35,9 +35,14 @@ todoRouter.get("/", getTodos);
 
 /**
  * @swagger
- *  /todo:id:
+ * paths:
+ *  /todo/{id}:
  *    get:
  *      summary: "특정 Todo 검색"
+ *      parameters:
+ *        - in: path
+ *          name: id
+ *          required: true
  *      tags: [Todo]
  *      responses:
  *        "200":
