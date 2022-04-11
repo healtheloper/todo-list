@@ -6,6 +6,7 @@ components:
         title:
           type: string
           description: Todo 제목
+          required: true
         desc:
           type: string
           description: Todo 설명
@@ -13,5 +14,5 @@ components:
           type: string
           description: Todo 작성자
         columnId:
-          type: number
-          description: Todo 가 속한 Column 의 Id
+          type: string
+          description: Todo 가 속한 Column 의 Id Todo 가 속한 Column 의 Id (type 은 mongoose 의 objectId)

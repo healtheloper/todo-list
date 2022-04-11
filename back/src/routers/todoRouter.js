@@ -35,7 +35,6 @@ todoRouter.get("/", getTodos);
 
 /**
  * @swagger
- * paths:
  *  /todo/{id}:
  *    get:
  *      summary: "특정 Todo 검색"
@@ -89,9 +88,13 @@ todoRouter.post("/create", postTodoCreate);
 
 /**
  * @swagger
- *  /todo/delete/:id:
+ *  /todo/delete/{id}:
  *    delete:
  *      summary: "특정 Todo 삭제"
+ *      parameters:
+ *        - in: path
+ *          name: id
+ *          required: true
  *      tags: [Todo]
  *      responses:
  *        "200":
@@ -111,10 +114,19 @@ todoRouter.delete("/delete/:id", deleteTodoById);
 
 /**
  * @swagger
- *  /todo/update/:id:
- *    update:
+ *  /todo/update/{id}:
+ *    patch:
  *      summary: "특정 Todo 정보 수정"
+ *      parameters:
+ *        - in: path
+ *          name: id
+ *          required: true
  *      tags: [Todo]
+ *      requestBody:
+ *        content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/CreateTodo'
  *      responses:
  *        "200":
  *          description: id 를 통해 특정 Todo 정보 수정
