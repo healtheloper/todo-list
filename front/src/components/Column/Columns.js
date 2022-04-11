@@ -10,7 +10,7 @@ const Columns = ({ columns, todos }) => {
   const getColumnTemplate = (column) => {
     return `<div class="${styles.column}">
       ${Header({ column, todos: getTodosByColumnId(column._id) })}
-      ${Cards({ column, todos: getTodosByColumnId(column._id) })}
+      ${Cards({ todos: getTodosByColumnId(column._id) })}
   </div>`;
   };
 
