@@ -6,7 +6,6 @@ components:
         title:
           type: string
           description: Todo 제목
-          required: true
         desc:
           type: string
           description: Todo 설명

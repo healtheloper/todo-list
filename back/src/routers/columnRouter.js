@@ -27,6 +27,31 @@ const columnRouter = express.Router();
  */
 columnRouter.get("/", getColumns);
 
+/**
+ * @swagger
+ *  /column/create:
+ *    post:
+ *      summary: "Column 생성"
+ *      tags: [Column]
+ *      requestBody:
+ *        content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/CreateColumn'
+ *      responses:
+ *        "200":
+ *          description: 새로운 Column 생성
+ *          content:
+ *            application/json:
+ *              schema:
+ *                type: object
+ *                properties:
+ *                  ok:
+ *                    type: boolean
+ *                  results:
+ *                    type: object
+ *                    $ref: '#/components/schemas/Column'
+ */
 columnRouter.post("/create", postColumnCreate);
 
 export default columnRouter;
