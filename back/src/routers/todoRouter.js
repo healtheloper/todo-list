@@ -14,31 +14,44 @@ const todoRouter = express.Router();
  * @swagger
  *  /todo:
  *    get:
- *      summary: "Todo 리스트 검색"
+ *      summary: "전체 Todo 검색"
  *      tags: [Todo]
  *      responses:
  *        "200":
- *          description: A Todo schema
+ *          description: 전체 Todo 검색
  *          content:
  *            application/json:
  *              schema:
- *                $ref: '#/components/schemas/Todo'
+ *                type: object
+ *                properties:
+ *                  ok:
+ *                    type: boolean
+ *                  results:
+ *                    type: array
+ *                    items:
+ *                      $ref: '#/components/schemas/Todo'
  */
 todoRouter.get("/", getTodos);
 
 /**
  * @swagger
- *  /todo/:id:
+ *  /todo:id:
  *    get:
- *      summary: 특정 Todo 검색
+ *      summary: "특정 Todo 검색"
  *      tags: [Todo]
  *      responses:
  *        "200":
- *          description: A Todo schema
+ *          description: id 를 통해 특정 Todo 겁색
  *          content:
  *            application/json:
  *              schema:
- *                $ref: '#/components/schemas/Todo'
+ *                type: object
+ *                properties:
+ *                  ok:
+ *                    type: boolean
+ *                  results:
+ *                    type: object
+ *                    $ref: '#/components/schemas/Todo'
  */
 todoRouter.get("/:id", getTodoById);
 
@@ -46,49 +59,70 @@ todoRouter.get("/:id", getTodoById);
  * @swagger
  *  /todo/create:
  *    post:
- *      summary: Todo 생성
+ *      summary: "Todo 생성"
  *      tags: [Todo]
+ *      requestBody:
+ *        content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/CreateTodo'
  *      responses:
  *        "200":
- *          description: A Todo schema
+ *          description: 새로운 Todo 생성
  *          content:
  *            application/json:
  *              schema:
- *                $ref: '#/components/schemas/Todo'
+ *                type: object
+ *                properties:
+ *                  ok:
+ *                    type: boolean
+ *                  results:
+ *                    type: object
+ *                    $ref: '#/components/schemas/Todo'
  */
 todoRouter.post("/create", postTodoCreate);
 
 /**
  * @swagger
- * path:
  *  /todo/delete/:id:
  *    delete:
- *      summary: Todo 삭제
+ *      summary: "특정 Todo 삭제"
  *      tags: [Todo]
  *      responses:
  *        "200":
- *          description: A Todo schema
+ *          description: id 를 통해 특정 Todo 삭제
  *          content:
  *            application/json:
  *              schema:
- *                $ref: '#/components/schemas/Todo'
+ *                type: object
+ *                properties:
+ *                  ok:
+ *                    type: boolean
+ *                  results:
+ *                    type: object
+ *                    $ref: '#/components/schemas/Todo'
  */
 todoRouter.delete("/delete/:id", deleteTodoById);
 
 /**
  * @swagger
- * path:
  *  /todo/update/:id:
- *    patch:
- *      summary: Todo 수정
+ *    update:
+ *      summary: "특정 Todo 정보 수정"
  *      tags: [Todo]
  *      responses:
  *        "200":
- *          description: A Todo schema
+ *          description: id 를 통해 특정 Todo 정보 수정
  *          content:
  *            application/json:
  *              schema:
- *                $ref: '#/components/schemas/Todo'
+ *                type: object
+ *                properties:
+ *                  ok:
+ *                    type: boolean
+ *                  results:
+ *                    type: object
+ *                    $ref: '#/components/schemas/Todo'
  */
 todoRouter.patch("/update/:id", updateTodoById);
 

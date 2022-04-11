@@ -12,7 +12,7 @@ const options = {
       },
     ],
   },
-  apis: ["./src/routers/*.js", "./src/router.js", "./src/swagger/*"],
+  apis: ["./src/routers/*.js", "./src/router.js", "./src/swagger/schemas/*"],
 };
 
 export default options;
