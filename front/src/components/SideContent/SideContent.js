@@ -35,9 +35,8 @@ const closeBtnTag = `
 
 const SideContent = ({ todoLogs, columns }) => {
   const newTodoLogs = todoLogs.map((todoLog) => {
-    const column = columns.find((col) => col._id === todoLog.columnId);
-    const { title: columnTitle } = column;
-    return { ...todoLog, columnTitle };
+    const column = columns?.find((col) => col._id === todoLog.columnId);
+    return { ...todoLog, columnTitle: column?.title };
   });
 
   const $actionsWrap = peact.createElement({
