@@ -22,17 +22,7 @@ import styles from "./action.module.css";
  */
 
 const Action = ({ todoLog }) => {
-  const [columnTitle, setColumnTitle] = peact.useState("");
-  const { colunmId, title, author, type } = todoLog;
-
-  peact.useEffect(() => {
-    const fetchColumn = async (id) => {
-      const column = await columnApi.getColumnById(id);
-      console.log(column);
-      setColumnTitle(column.title);
-    };
-    fetchColumn(colunmId);
-  }, []);
+  const { columnTitle, title, author, type } = todoLog;
 
   const actionInnerHTML = `
     <div class="${styles.icon}">🥳</div>

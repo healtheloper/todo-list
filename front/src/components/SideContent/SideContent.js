@@ -33,11 +33,17 @@ const closeBtnTag = `
   </svg>
 `;
 
-const SideContent = ({ todoLogs }) => {
+const SideContent = ({ todoLogs, columns }) => {
+  const newTodoLogs = todoLogs.map((todoLog) => {
+    const column = columns.find((column) => column._id === todoLog.columnId);
+    const { title: columnTitle } = column;
+    return { ...todoLog, columnTitle };
+  });
+
   const $actionsWrap = peact.createElement({
     tag: "div",
     className: styles.actionWrap,
-    child: todoLogs.map((todoLog) => Action({ todoLog })),
+    child: newTodoLogs.map((todoLog) => Action({ todoLog })),
   });
 
   const handleCloseBtn = ({ target }) => {

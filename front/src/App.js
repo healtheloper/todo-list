@@ -39,7 +39,7 @@ const App = () => {
   return peact.createElement({
     tag: "div",
     className: styles.wrap,
-    child: [$todoListArea, SideContent({ todoLogs })],
+    child: [$todoListArea, SideContent({ todoLogs, columns })],
   });
 };
 
