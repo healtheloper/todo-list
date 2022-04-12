@@ -20,6 +20,14 @@ export const getColumnById = sendMethodResult(async (req) => {
   return column;
 });
 
+export const deleteColumnById = sendMethodResult(async (req) => {
+  const {
+    params: { id },
+  } = req;
+  const deletedColumn = await Column.findByIdAndRemove(id);
+  return deletedColumn;
+});
+
 export const postColumnCreate = sendMethodResult(async (req) => {
   const {
     body: { title },

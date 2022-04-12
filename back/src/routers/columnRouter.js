@@ -4,6 +4,7 @@ import {
   getColumns,
   getColumnById,
   postColumnCreate,
+  deleteColumnById,
 } from "../controllers/columnController";
 
 const columnRouter = express.Router();
@@ -83,5 +84,31 @@ columnRouter.get("/:id", getColumnById);
  *                    $ref: '#/components/schemas/Column'
  */
 columnRouter.post("/create", postColumnCreate);
+
+/**
+ * @swagger
+ *  /column/delete/{id}:
+ *    delete:
+ *      summary: "특정 Column 삭제"
+ *      parameters:
+ *        - in: path
+ *          name: id
+ *          required: true
+ *      tags: [Column]
+ *      responses:
+ *        "200":
+ *          description: id 를 통해 특정 Column 삭제
+ *          content:
+ *            application/json:
+ *              schema:
+ *                type: object
+ *                properties:
+ *                  ok:
+ *                    type: boolean
+ *                  results:
+ *                    type: object
+ *                    $ref: '#/components/schemas/Column'
+ */
+columnRouter.delete("/delete/:id", deleteColumnById);
 
 export default columnRouter;
