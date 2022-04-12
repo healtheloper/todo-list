@@ -1,24 +1,10 @@
 import { LOG_TYPE } from "../../../common/constants";
 import peact from "../../../core/peact";
-import columnApi from "../../../service/columnApi";
 import styles from "./action.module.css";
 
 /*
  * type: move
  * ${fromColumnTitle} 에서 ${toColumnTitle} 로 이동하였습니다.
- */
-
-/*
- * type: create
- * ${columnTitle} 에 ${todoTitle} 를 등록하였습니다.
- */
-/*
- * type: update
- * ${columnTitle} 에 ${todoTitle} 를 수정하였습니다.
- */
-/*
- * type: delete
- * ${columnTitle} 에 ${todoTitle} 를 삭제하였습니다.
  */
 
 const Action = ({ todoLog }) => {

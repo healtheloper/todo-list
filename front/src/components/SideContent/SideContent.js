@@ -35,7 +35,7 @@ const closeBtnTag = `
 
 const SideContent = ({ todoLogs, columns }) => {
   const newTodoLogs = todoLogs.map((todoLog) => {
-    const column = columns.find((column) => column._id === todoLog.columnId);
+    const column = columns.find((col) => col._id === todoLog.columnId);
     const { title: columnTitle } = column;
     return { ...todoLog, columnTitle };
   });
