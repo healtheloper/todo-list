@@ -40,36 +40,42 @@ const SideContent = () => {
     child: [Action(), Action()],
   });
 
-  const $actions = peact.createElement({
-    tag: "div",
-    className: styles.actions,
-    child: [$actionsWrap],
-  });
-
-  const handleBtn = ({ target }) => {
+  const handleCloseBtn = ({ target }) => {
+    const $closeBtn = target.closest(`.${styles.closeBtn}`);
+    const $actions = $closeBtn.parentNode;
+    const $menuBtn = $actions.parentNode.querySelector(`.${styles.menuBtn}`);
     $actions.classList.toggle(styles.active);
-    const $targetBtn = target.closest("button");
-    [...$targetBtn.parentNode.querySelectorAll("button")].forEach(($btn) => {
-      $btn.classList.toggle(styles.btnActive);
-    });
+    $menuBtn.classList.toggle(styles.btnActive);
   };
 
   const $closeBtn = Button({
     className: styles.closeBtn,
-    onClick: handleBtn,
+    onClick: handleCloseBtn,
     innerHTML: closeBtnTag,
   });
 
+  const $actions = peact.createElement({
+    tag: "div",
+    className: styles.actions,
+    child: [$actionsWrap, $closeBtn],
+  });
+
+  const handleMenuBtn = ({ target }) => {
+    const $menuBtn = target.closest(`.${styles.menuBtn}`);
+    $menuBtn.classList.toggle(styles.btnActive);
+    $actions.classList.toggle(styles.active);
+  };
+
   const $menuBtn = Button({
     className: [styles.menuBtn, styles.btnActive],
-    onClick: handleBtn,
+    onClick: handleMenuBtn,
     innerHTML: menuBtnTag,
   });
 
   return peact.createElement({
     tag: "div",
     className: styles.sideContent,
-    child: [$menuBtn, $closeBtn, $actions],
+    child: [$menuBtn, $actions],
   });
 };
 
