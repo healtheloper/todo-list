@@ -1,6 +1,6 @@
 import peact from "../../core/peact";
 import Button from "../../tagComponents/Button";
-import Actions from "./Actions/Actions";
+import Action from "./Action/Action";
 import styles from "./sideContent.module.css";
 
 const menuBtnTag = `
@@ -34,19 +34,42 @@ const closeBtnTag = `
 `;
 
 const SideContent = () => {
+  const $actionsWrap = peact.createElement({
+    tag: "div",
+    className: styles.actionWrap,
+    child: [Action(), Action()],
+  });
+
+  const $actions = peact.createElement({
+    tag: "div",
+    className: styles.actions,
+    child: [$actionsWrap],
+  });
+
+  const handleBtn = ({ target }) => {
+    $actions.classList.toggle(styles.active);
+    const $targetBtn = target.closest("button");
+    [...$targetBtn.parentNode.querySelectorAll("button")].forEach(($btn) => {
+      $btn.classList.toggle(styles.btnActive);
+    });
+  };
+
   const $closeBtn = Button({
     className: styles.closeBtn,
+    onClick: handleBtn,
     innerHTML: closeBtnTag,
   });
+
   const $menuBtn = Button({
-    className: styles.menuBtn,
+    className: [styles.menuBtn, styles.btnActive],
+    onClick: handleBtn,
     innerHTML: menuBtnTag,
   });
 
   return peact.createElement({
     tag: "div",
     className: styles.sideContent,
-    child: [$menuBtn, $closeBtn, Actions()],
+    child: [$menuBtn, $closeBtn, $actions],
   });
 };
 
