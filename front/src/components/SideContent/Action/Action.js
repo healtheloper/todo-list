@@ -1,7 +1,25 @@
 import peact from "../../../core/peact";
 import styles from "./action.module.css";
 
-const Action = () => {
+/*
+ * type: move
+ * ${fromColumnTitle} 에서 ${toColumnTitle} 로 이동하였습니다.
+ */
+
+/*
+ * type: create
+ * ${columnTitle} 에 ${todoTitle} 를 등록하였습니다.
+ */
+/*
+ * type: update
+ * ${columnTitle} 에 ${todoTitle} 를 수정하였습니다.
+ */
+/*
+ * type: delete
+ * ${columnTitle} 에 ${todoTitle} 를 삭제하였습니다.
+ */
+
+const Action = ({ todoLog }) => {
   const actionInnerHTML = `
     <div class="${styles.icon}">🥳</div>
     <div class="content">

@@ -33,11 +33,11 @@ const closeBtnTag = `
   </svg>
 `;
 
-const SideContent = () => {
+const SideContent = ({ todoLogs }) => {
   const $actionsWrap = peact.createElement({
     tag: "div",
     className: styles.actionWrap,
-    child: [Action(), Action()],
+    child: todoLogs.map((todoLog) => Action({ todoLog })),
   });
 
   const handleCloseBtn = ({ target }) => {

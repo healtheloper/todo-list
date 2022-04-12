@@ -4,11 +4,13 @@ import Header from "./components/Header/Header";
 import SideContent from "./components/SideContent/SideContent";
 import peact from "./core/peact";
 import columnApi from "./service/columnApi";
+import logApi from "./service/logApi";
 import todoApi from "./service/todoApi";
 
 const App = () => {
   const [todos, setTodos] = peact.useState([]);
   const [columns, setColumns] = peact.useState([]);
+  const [todoLogs, setTodoLogs] = peact.useState([]);
 
   peact.useEffect(() => {
     const fetchTodos = async () => {
@@ -19,8 +21,13 @@ const App = () => {
       const newColumns = await columnApi.getColumns();
       setColumns(newColumns);
     };
-    fetchColumns();
+    const fetchTodoLogs = async () => {
+      const newTodoLogs = await logApi.getTodoLogs();
+      setTodoLogs(newTodoLogs);
+    };
     fetchTodos();
+    fetchColumns();
+    fetchTodoLogs();
   }, []);
 
   const $todoListArea = peact.createElement({
@@ -32,7 +39,7 @@ const App = () => {
   return peact.createElement({
     tag: "div",
     className: styles.wrap,
-    child: [$todoListArea, SideContent()],
+    child: [$todoListArea, SideContent({ todoLogs })],
   });
 };
 
