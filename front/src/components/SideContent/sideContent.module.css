@@ -34,7 +34,7 @@
   position: absolute;
   top: 0;
   right: calc(var(--side-content-width) * -1);
-  width: 100%;
+  width: var(--side-content-width);
   height: 100%;
   display: block;
   background-color: var(--bg-white-color);
