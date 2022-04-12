@@ -1,17 +1,19 @@
+import peact from "../../../core/peact";
 import Card from "../Card/Card";
-import CardWritable from "../CardWritable/CardWritable";
 import styles from "./cards.module.css";
 
 const Cards = ({ todos }) => {
   const getCardsTemplate = (todo) => {
-    return `
-    <div class="${styles.cardsArea}">
-      ${Card({ todo })}
-    </div>
-      `;
+    return peact.createElement({
+      tag: "div",
+      className: styles.cardsArea,
+      child: [Card({ todo })],
+    });
   };
-
-  return todos.map(getCardsTemplate).join("");
+  return peact.createElement({
+    tag: "div",
+    child: todos.map(getCardsTemplate),
+  });
 };
 
 export default Cards;

@@ -11,7 +11,7 @@ const App = () => {
   const [todos, setTodos] = peact.useState([]);
   const [columns, setColumns] = peact.useState([]);
 
-  const handleActionDisplay = () => {
+  const handleActionDisplay = ({ target }) => {
     const display = actionDisplay === "none" ? "visible" : "none";
     setActionDisplay(display);
   };
@@ -29,15 +29,20 @@ const App = () => {
     fetchTodos();
   }, []);
 
-  return `
-    <div class="${styles.wrap}">
-        <div class="${styles.todolistArea}">
-            ${Header({ onMenuClick: handleActionDisplay })}
-            ${Main({ columns, todos })}
-        </div>
-        ${Actions({ display: actionDisplay })}
-    </div>
-  `;
+  const $todoListArea = peact.createElement({
+    tag: "div",
+    className: styles.todolistArea,
+    child: [
+      Header({ onMenuClick: handleActionDisplay }),
+      Main({ columns, todos }),
+    ],
+  });
+
+  return peact.createElement({
+    tag: "div",
+    className: styles.wrap,
+    child: [$todoListArea, Actions({ display: actionDisplay })],
+  });
 };
 
 export default App;
