@@ -1,7 +1,7 @@
-import peact from "../../core/peact";
-import Cards from "./Cards/Cards";
+import peact from "../../../core/peact";
+import Cards from "../Cards/Cards";
+import ColumnHeader from "../ColumnHeader/ColumnHeader";
 import styles from "./columns.module.css";
-import Header from "./Header/Header";
 
 const Columns = ({ columns, todos }) => {
   const getTodosByColumnId = (columnId) => {
@@ -13,7 +13,7 @@ const Columns = ({ columns, todos }) => {
       tag: "div",
       className: styles.column,
       child: [
-        Header({ column, todos: getTodosByColumnId(column._id) }),
+        ColumnHeader({ column, todos: getTodosByColumnId(column._id) }),
         Cards({ todos: getTodosByColumnId(column._id) }),
       ],
     });

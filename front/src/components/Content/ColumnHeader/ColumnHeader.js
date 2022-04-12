@@ -1,7 +1,7 @@
 import peact from "../../../core/peact";
-import styles from "./header.module.css";
+import styles from "./columnHeader.module.css";
 
-const Header = ({ column, todos }) => {
+const ColumnHeader = ({ column, todos }) => {
   const todosCount = todos.length;
 
   const headerInnerHTML = `
@@ -33,4 +33,4 @@ const Header = ({ column, todos }) => {
   });
 };
 
-export default Header;
+export default ColumnHeader;

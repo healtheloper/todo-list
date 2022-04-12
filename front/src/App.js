@@ -1,7 +1,7 @@
 import styles from "./App.module.css";
 import Actions from "./components/Actions/Actions";
+import Content from "./components/Content/Content";
 import Header from "./components/Header/Header";
-import Main from "./components/Main";
 import peact from "./core/peact";
 import columnApi from "./service/columnApi";
 import todoApi from "./service/todoApi";
@@ -34,7 +34,7 @@ const App = () => {
     className: styles.todolistArea,
     child: [
       Header({ onMenuClick: handleActionDisplay }),
-      Main({ columns, todos }),
+      Content({ columns, todos }),
     ],
   });
 
