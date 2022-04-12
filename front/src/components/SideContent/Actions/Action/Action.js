@@ -1,4 +1,4 @@
-import peact from "../../../core/peact";
+import peact from "../../../../core/peact";
 import styles from "./action.module.css";
 
 const Action = () => {

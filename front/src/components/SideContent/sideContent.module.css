@@ -1,0 +1,28 @@
+.sideContent {
+  position: relative;
+  width: 450px;
+  height: 100vh;
+  display: block;
+  /* padding: var(--padding-top); */
+  background-color: var(--bg-base-color);
+}
+
+.closeBtn {
+  position: absolute;
+  top: var(--padding-top);
+  left: var(--padding-top);
+  display: none;
+  cursor: pointer;
+  justify-content: flex-end;
+  margin-bottom: 18px;
+}
+
+.menuBtn {
+  position: absolute;
+  top: var(--padding-top);
+  left: var(--padding-top);
+  display: flex;
+  cursor: pointer;
+  justify-content: flex-end;
+  margin-bottom: 18px;
+}
