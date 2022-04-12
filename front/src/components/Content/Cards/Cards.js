@@ -3,6 +3,8 @@ import Card from "../Card/Card";
 import styles from "./cards.module.css";
 
 const Cards = ({ todos }) => {
+  const setTodosSortByLatest = (a, b) =>
+    new Date(b.updatedAt) - new Date(a.updatedAt);
   const getCardsTemplate = (todo) => {
     return peact.createElement({
       tag: "div",
@@ -10,9 +12,10 @@ const Cards = ({ todos }) => {
       child: [Card({ todo })],
     });
   };
+
   return peact.createElement({
     tag: "div",
-    child: todos.map(getCardsTemplate),
+    child: todos.sort(setTodosSortByLatest).map(getCardsTemplate),
   });
 };
 
