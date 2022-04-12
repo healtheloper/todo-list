@@ -11,7 +11,7 @@ const App = () => {
   const [todos, setTodos] = peact.useState([]);
   const [columns, setColumns] = peact.useState([]);
 
-  const handleActionDisplay = ({ target }) => {
+  const handleActionDisplay = () => {
     const display = actionDisplay === "none" ? "visible" : "none";
     setActionDisplay(display);
   };
