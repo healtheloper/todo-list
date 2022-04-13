@@ -45,12 +45,21 @@ const SideContent = ({ todoLogs, columns }) => {
     child: newTodoLogs.map((todoLog) => Action({ todoLog })),
   });
 
+  const toggleSideContent = (elements) => {
+    elements.forEach(({ element, className }) => {
+      element.classList.toggle(className);
+    });
+  };
+
   const handleCloseBtn = ({ target }) => {
     const $closeBtn = target.closest(`.${styles.closeBtn}`);
     const $actions = $closeBtn.parentNode;
     const $menuBtn = $actions.parentNode.querySelector(`.${styles.menuBtn}`);
-    $actions.classList.toggle(styles.active);
-    $menuBtn.classList.toggle(styles.btnActive);
+    const elements = [
+      { element: $actions, className: styles.active },
+      { element: $menuBtn, className: styles.btnActive },
+    ];
+    toggleSideContent(elements);
   };
 
   const $closeBtn = Button({
@@ -67,8 +76,11 @@ const SideContent = ({ todoLogs, columns }) => {
 
   const handleMenuBtn = ({ target }) => {
     const $menuBtn = target.closest(`.${styles.menuBtn}`);
-    $menuBtn.classList.toggle(styles.btnActive);
-    $actions.classList.toggle(styles.active);
+    const elements = [
+      { element: $actions, className: styles.active },
+      { element: $menuBtn, className: styles.btnActive },
+    ];
+    toggleSideContent(elements);
   };
 
   const $menuBtn = Button({
