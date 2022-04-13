@@ -4,14 +4,20 @@ const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const ErrorOverlayPlugin = require("error-overlay-webpack-plugin");
 const ESLintPlugin = require("eslint-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
-const { webpack } = require("webpack");
+
+const API_URL = {
+  LOCAL: "http://localhost:3000/api",
+  HEROKU: "https://bbpark-todolist.herokuapp.com/api",
+};
 
 module.exports = (env) => {
   const { DEPLOY } = env;
+  const isDeploy = JSON.parse(DEPLOY);
+
   return {
-    mode: "development",
+    mode: isDeploy ? "production" : "development",
     entry: ["./src/index.js"],
-    devtool: "source-map",
+    devtool: isDeploy ? "" : "source-map",
     output: {
       path: path.resolve(__dirname, "dist"),
       filename: "bundle.js",
@@ -23,9 +29,6 @@ module.exports = (env) => {
       new HtmlWebpackPlugin({
         template: "./src/index.html",
       }),
-      new webpack.DefinePlugin({
-        DEPLOY,
-      }),
     ],
     module: {
       rules: [
@@ -36,7 +39,17 @@ module.exports = (env) => {
         {
           test: /\.js$/,
           exclude: /node_modules/,
-          use: ["babel-loader"],
+          use: [
+            "babel-loader",
+            {
+              loader: "string-replace-loader",
+              options: {
+                search: "__API_END_POINT__",
+                replace: isDeploy ? API_URL.HEROKU : API_URL.LOCAL,
+                flags: "g",
+              },
+            },
+          ],
         },
       ],
     },
