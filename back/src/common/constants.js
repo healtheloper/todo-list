@@ -17,4 +17,6 @@ const BASE_URL = {
   development: "http://localhost:",
 };
 
+export const SERVICE_DOMAIN = "https://healtheloper.github.io/todo-list/";
+
 export const API_URL = (PORT) => `${BASE_URL[process.env.NODE_ENV]}${PORT}/`;
