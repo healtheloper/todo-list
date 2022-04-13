@@ -9,11 +9,7 @@ const Card = ({ todo, handleRenderFlag }) => {
   };
 
   const handleXButton = (target) => {
-    if (!target.classList.contains(styles.xButton)) {
-      return;
-    }
-
-    const $path = target.querySelector(`.${styles.path}`);
+    const $path = target.querySelector(`.${styles.path}`) || target;
     const $cardElement = target.closest(`.${styles.card}`);
 
     $path.classList.toggle(styles.pathMouseOver);
@@ -29,14 +25,11 @@ const Card = ({ todo, handleRenderFlag }) => {
   };
 
   const onXButtonClick = ({ target }) => {
-    if (!target.classList.contains(styles.xButton)) {
-      return;
-    }
     const todoId = target.closest(`.${styles.card}`).id;
     showAlert({ todoId });
   };
 
-  const xButton = `
+  const xButtonInnerHTML = `
     <svg
     width="12"
     height="12"
@@ -44,7 +37,7 @@ const Card = ({ todo, handleRenderFlag }) => {
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
     class="${styles.xButton}"
-  >
+    >
       <path
         d="M1.5 11.25L0.75 10.5L5.25 6L0.75 1.5L1.5 0.75L6 5.25L10.5 0.75L11.25 1.5L6.75 6L11.25 10.5L10.5 11.25L6 6.75L1.5 11.25Z"
         class="${styles.path}"
@@ -52,29 +45,47 @@ const Card = ({ todo, handleRenderFlag }) => {
     </svg>
   `;
 
-  const cardInnerHTML = `
-    <div id="${todo._id}" name="${todo.columnId}" class="${styles.card}">
-      <div class="${styles.headerArea}">
-        <label class="${styles.title}">${todo.title}</label>
-        <div>
-          ${xButton}
-        </div>
-      </div>
-      <div>
-        <label class="${styles.cardContent}">${todo.desc}</label>
-      </div>
-      <div class="${styles.author}">${todo.author}</div>
-    </div>
-  `;
+  const $cardHeaderTitle = peact.createElement({
+    tag: "label",
+    className: styles.title,
+    child: [todo.title],
+  });
 
-  return peact.createElement({
-    tag: "form",
+  const $xButtonWrap = peact.createElement({
+    tag: "div",
     attrs: {
+      onClick: onXButtonClick,
       onMouseOver: onXButtonOver,
       onMouseOut: onXButtonOut,
-      onClick: onXButtonClick,
     },
-    child: [cardInnerHTML],
+    child: [xButtonInnerHTML],
+  });
+
+  const $cardHeaderArea = peact.createElement({
+    tag: "div",
+    className: styles.headerArea,
+    child: [$cardHeaderTitle, $xButtonWrap],
+  });
+
+  const $cardContent = peact.createElement({
+    tag: "div",
+    className: styles.cardContent,
+    child: [`<label class="${styles.cardContent}">${todo.desc}</label>`],
+  });
+
+  const $cardAuthor = peact.createElement({
+    tag: "div",
+    className: styles.author,
+    child: [todo.author],
+  });
+
+  return peact.createElement({
+    tag: "div",
+    className: styles.card,
+    attrs: {
+      id: todo._id,
+    },
+    child: [$cardHeaderArea, $cardContent, $cardAuthor],
   });
 };
 
