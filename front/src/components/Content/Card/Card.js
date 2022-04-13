@@ -2,6 +2,11 @@ import peact from "../../../core/peact";
 import Modal from "../../Modal/Modal";
 import styles from "./card.module.css";
 
+const showAlert = () => {
+  const $body = document.querySelector("body");
+  $body.append(Modal());
+};
+
 const handleXButton = (target) => {
   if (!target.classList.contains(styles.xButton)) {
     return;
@@ -26,7 +31,7 @@ const onXButtonClick = ({ target }) => {
   if (!target.classList.contains(styles.xButton)) {
     return;
   }
-  Modal.showAlert();
+  showAlert();
 };
 
 const Card = ({ todo }) => {

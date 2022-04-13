@@ -1,13 +1,7 @@
 import peact from "../../core/peact";
 import styles from "./modal.module.css";
 
-// component 형태가 아님
-const Modal = (function () {
-  const showAlert = () => {
-    const $body = document.querySelector("body");
-    $body.append($modalWrap);
-  };
-
+const Modal = () => {
   const hideAlert = () => {
     const $body = document.querySelector("body");
     const $alert = $body.querySelector(`.${styles.modalWrap}`);
@@ -53,7 +47,7 @@ const Modal = (function () {
     child: [$modalPopupMessage, $modalPopupButtons],
   });
 
-  const $modalWrap = peact.createElement({
+  return peact.createElement({
     tag: "div",
     className: styles.modalWrap,
     child: [$modalPopup],
@@ -61,8 +55,6 @@ const Modal = (function () {
       onClick: onModalClick,
     },
   });
-
-  return { hideAlert, showAlert, $modalWrap };
-})();
+};
 
 export default Modal;
