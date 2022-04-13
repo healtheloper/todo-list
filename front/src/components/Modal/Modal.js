@@ -1,7 +1,8 @@
 import peact from "../../core/peact";
+import todoApi from "../../service/todoApi";
 import styles from "./modal.module.css";
 
-const Modal = () => {
+const Modal = ({ todoId, handleRenderFlag }) => {
   const hideAlert = () => {
     const $body = document.querySelector("body");
     const $alert = $body.querySelector(`.${styles.modalWrap}`);
@@ -11,6 +12,14 @@ const Modal = () => {
   const onModalClick = ({ target }) => {
     if (target.classList.contains(styles.modalWrap)) {
       hideAlert();
+    }
+  };
+
+  const deleteTodo = async () => {
+    const deletedTodo = await todoApi.deleteTodo(todoId);
+
+    if (deletedTodo) {
+      handleRenderFlag();
     }
   };
 
@@ -32,6 +41,9 @@ const Modal = () => {
   const $modalPopupDeleteButton = peact.createElement({
     tag: "button",
     className: styles.deleteButton,
+    attrs: {
+      onClick: deleteTodo,
+    },
     child: ["삭제"],
   });
 

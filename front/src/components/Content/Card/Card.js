@@ -2,41 +2,42 @@ import peact from "../../../core/peact";
 import Modal from "../../Modal/Modal";
 import styles from "./card.module.css";
 
-const showAlert = () => {
-  const $body = document.querySelector("body");
-  $body.append(Modal());
-};
+const Card = ({ todo, handleRenderFlag }) => {
+  const showAlert = ({ todoId }) => {
+    const $body = document.querySelector("body");
+    $body.append(Modal({ todoId, handleRenderFlag }));
+  };
 
-const handleXButton = (target) => {
-  if (!target.classList.contains(styles.xButton)) {
-    return;
-  }
+  const handleXButton = (target) => {
+    if (!target.classList.contains(styles.xButton)) {
+      return;
+    }
 
-  const $path = target.querySelector(`.${styles.path}`);
-  const $cardElement = target.closest(`.${styles.card}`);
+    const $path = target.querySelector(`.${styles.path}`);
+    const $cardElement = target.closest(`.${styles.card}`);
 
-  $path.classList.toggle(styles.pathMouseOver);
-  $cardElement.classList.toggle(styles.cardMouseOver);
-};
+    $path.classList.toggle(styles.pathMouseOver);
+    $cardElement.classList.toggle(styles.cardMouseOver);
+  };
 
-const onXButtonOver = ({ target }) => {
-  handleXButton(target);
-};
+  const onXButtonOver = ({ target }) => {
+    handleXButton(target);
+  };
 
-const onXButtonOut = ({ target }) => {
-  handleXButton(target);
-};
+  const onXButtonOut = ({ target }) => {
+    handleXButton(target);
+  };
 
-const onXButtonClick = ({ target }) => {
-  if (!target.classList.contains(styles.xButton)) {
-    return;
-  }
-  showAlert();
-};
+  const onXButtonClick = ({ target }) => {
+    if (!target.classList.contains(styles.xButton)) {
+      return;
+    }
+    const todoId = target.closest(`.${styles.card}`).getAttribute("id");
+    showAlert({ todoId });
+  };
 
-const Card = ({ todo }) => {
   const cardInnerHTML = `
-    <form class="${styles.card}">
+    <div id="${todo._id}" name="${todo.columnId}" class="${styles.card}">
       <div class="${styles.headerArea}">
         <label class="${styles.title}">${todo.title}</label>
         <div>
@@ -59,12 +60,11 @@ const Card = ({ todo }) => {
         <label class="${styles.cardContent}">${todo.desc}</label>
       </div>
       <div class="${styles.author}">${todo.author}</div>
-    </form>
+    </div>
   `;
 
   return peact.createElement({
     tag: "form",
-    className: styles.card,
     attrs: {
       onMouseOver: onXButtonOver,
       onMouseOut: onXButtonOut,
