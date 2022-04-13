@@ -1,7 +1,7 @@
 import peact from "../../../core/peact";
 import styles from "./cardWritable.module.css";
 
-const CardWritable = () => {
+const CardWritable = ({ displayClassName }) => {
   const $inputDesc = peact.createElement({
     tag: "div",
     child: [
@@ -27,9 +27,17 @@ const CardWritable = () => {
     child: [$inputTitle],
   });
 
+  const onCancelButtonClick = ({ target }) => {
+    const $cardWritable = target.closest(`.${"cardWritable"}`);
+    $cardWritable.classList.toggle(displayClassName);
+  };
+
   const $cancelButton = peact.createElement({
     tag: "button",
     className: [styles.button, styles.cancelButton],
+    attrs: {
+      onClick: onCancelButtonClick,
+    },
     child: ["취소"],
   });
 

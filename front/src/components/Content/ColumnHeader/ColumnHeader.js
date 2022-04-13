@@ -47,12 +47,6 @@ const ColumnHeader = ({ column, todos }) => {
     });
   };
 
-  const onXButtonClick = ({ target }) => {
-    const $currentHeader = target.closest(".header");
-    const $cardWritable = $currentHeader.querySelector(".cardWritable");
-    $cardWritable.classList.remove(styles.display);
-  };
-
   const todosCount = todos.length;
 
   const $columnTitleWrap = peact.createElement({
@@ -87,7 +81,6 @@ const ColumnHeader = ({ column, todos }) => {
     attrs: {
       onMouseOver: onXButtonOver,
       onMouseOut: onXButtonOut,
-      onClick: onXButtonClick,
     },
     child: [
       `<svg width="12" height="12" viewBox="0 0 12 12" xmlns="http://www.w3.org/2000/svg">
@@ -111,7 +104,10 @@ const ColumnHeader = ({ column, todos }) => {
   return peact.createElement({
     tag: "div",
     className: [styles.header, "header"],
-    child: [$columnTitleArea, CardWritable()],
+    child: [
+      $columnTitleArea,
+      CardWritable({ displayClassName: styles.display }),
+    ],
   });
 };
 
