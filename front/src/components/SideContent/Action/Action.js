@@ -1,4 +1,5 @@
 import { LOG_TYPE } from "../../../common/constants";
+import { getDateDiffFormat, getMongoNow } from "../../../common/dateUtils";
 import peact from "../../../core/peact";
 import styles from "./action.module.css";
 
@@ -8,7 +9,12 @@ import styles from "./action.module.css";
  */
 
 const Action = ({ todoLog }) => {
-  const { columnTitle, title, author, type } = todoLog;
+  const { columnTitle, title, author, type, createdAt } = todoLog;
+  const currentTime = getMongoNow();
+  const dateDiff = getDateDiffFormat({
+    prev: createdAt,
+    next: currentTime,
+  });
 
   const actionInnerHTML = `
     <div class="${styles.icon}">🥳</div>
@@ -18,9 +24,10 @@ const Action = ({ todoLog }) => {
             <strong>${columnTitle}</strong>에 <strong>${title}</strong>를
             <strong>${LOG_TYPE[type]}</strong>하였습니다.
         </p>
-        <p class="${styles.time}">1분 전</p>
+        <p class="${styles.time}">${dateDiff}</p>
     </div>
   `;
+
   return peact.createElement({
     tag: "div",
     className: styles.action,
