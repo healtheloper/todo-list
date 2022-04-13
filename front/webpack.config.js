@@ -17,7 +17,6 @@ module.exports = (env) => {
   return {
     mode: isDeploy ? "production" : "development",
     entry: ["./src/index.js"],
-    devtool: isDeploy ? "" : "source-map",
     output: {
       path: path.resolve(__dirname, "dist"),
       filename: "bundle.js",
@@ -53,5 +52,6 @@ module.exports = (env) => {
         },
       ],
     },
+    ...(isDeploy ? { devtool: "source-map" } : {}),
   };
 };
