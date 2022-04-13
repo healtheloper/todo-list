@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "babel -d ./build ./src -s",
-    "start": "babel-node init.js --delay 1",
+    "start": "babel-node src/init.js --delay 1",
     "start:prod": "node build/init.js",
     "start:watch": "nodemon --exec npm start",
     "lint": "eslint src --fix"
