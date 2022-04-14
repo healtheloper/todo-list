@@ -2,16 +2,14 @@ import peact from "../../../core/peact";
 import Button from "../../../tagComponents/Button";
 import styles from "./cardWritable.module.css";
 
-const activateButton = ($button, activeClassName) => {
+const activateButton = ($button, deactiveClassName) => {
   $button.removeAttribute("disabled");
-  $button.classList.add(activeClassName);
-  $button.style.cursor = "pointer";
+  $button.classList.remove(deactiveClassName);
 };
 
-const deactivateButton = ($button, activeClassName) => {
+const deactivateButton = ($button, deactiveClassName) => {
   $button.setAttribute("disabled", "");
-  $button.classList.remove(activeClassName);
-  $button.style.cursor = "default";
+  $button.classList.add(deactiveClassName);
 };
 
 const CardWritable = ({
@@ -25,11 +23,11 @@ const CardWritable = ({
   const handleKeyUpInput = ({ target }) => {
     const $addButton = addButtonRef.current;
     const isInputEmpty = target.value === "";
-    const isInputActive = $addButton.classList.contains(styles.activeButton);
+    const isInputActive = !$addButton.classList.contains(styles.deactiveButton);
     if (isInputEmpty && isInputActive) {
-      deactivateButton($addButton, styles.activeButton);
+      deactivateButton($addButton, styles.deactiveButton);
     } else if (!isInputActive) {
-      activateButton($addButton, styles.activeButton);
+      activateButton($addButton, styles.deactiveButton);
     }
   };
 
