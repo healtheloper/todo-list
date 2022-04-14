@@ -90,11 +90,11 @@ const CardWritable = ({
   };
 
   if (!inputValues) {
-    Object.defineProperty(addButtonProps, "disabled", { value: "" }); // 외않되...
     addButtonProps.className = [
       ...addButtonProps.className,
       styles.deactiveButton,
     ];
+    addButtonProps.disabled = "";
   }
 
   const $addButton = Button(addButtonProps);
