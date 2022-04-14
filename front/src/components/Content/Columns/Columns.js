@@ -26,7 +26,6 @@ const Columns = ({ columns, todos, handleRenderFlag }) => {
   const createColumnElement = (column) => {
     const newCardRef = peact.useRef();
     const handleNewCardVisibility = () => {
-      console.log(newCardRef.current);
       newCardRef.current.classList.toggle(styles.visible);
     };
     const $newCard = CardWritable({ handleNewCardVisibility, ref: newCardRef });
