@@ -3,20 +3,15 @@ import CardWritable from "../CardWritable/CardWritable";
 import styles from "./columnHeader.module.css";
 
 const ColumnHeader = ({ column, todos }) => {
-  const handlePlusButtonOverOut = ({ target }) => {
-    const targetButton = target.closest(`.${styles.plusButton}`) || target;
-    targetButton.classList.toggle(styles.plusButtonOver);
+  const handleButtonOverOut = (target, buttonName) => {
+    const targetButton = target.closest(`.${styles[buttonName]}`) || target;
+    targetButton.classList.toggle(styles[`${buttonName}Over`]);
   };
 
   const onPlusButtonClick = ({ target }) => {
     const $currentHeader = target.closest(".header");
     const $cardWritable = $currentHeader.querySelector(".cardWritable");
     $cardWritable.classList.toggle(styles.display);
-  };
-
-  const handleXButtonOverOut = ({ target }) => {
-    const targetButton = target.closest(`.${styles.xButton}`) || target;
-    targetButton.classList.toggle(styles.xButtonOver);
   };
 
   const todosCount = todos.length;
@@ -38,8 +33,8 @@ const ColumnHeader = ({ column, todos }) => {
     tag: "div",
     className: styles.plusButton,
     attrs: {
-      onMouseOver: handlePlusButtonOverOut,
-      onMouseOut: handlePlusButtonOverOut,
+      onMouseOver: ({ target }) => handleButtonOverOut(target, "plusButton"),
+      onMouseOut: ({ target }) => handleButtonOverOut(target, "plusButton"),
       onClick: onPlusButtonClick,
     },
     child: [plusButtonImgTemplate],
@@ -54,8 +49,8 @@ const ColumnHeader = ({ column, todos }) => {
     tag: "div",
     className: styles.xButton,
     attrs: {
-      onMouseOver: handleXButtonOverOut,
-      onMouseOut: handleXButtonOverOut,
+      onMouseOver: ({ target }) => handleButtonOverOut(target, "xButton"),
+      onMouseOut: ({ target }) => handleButtonOverOut(target, "xButton"),
     },
     child: [deleteButtonImgTemplate],
   });
