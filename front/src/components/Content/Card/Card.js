@@ -8,20 +8,12 @@ const Card = ({ todo, handleRenderFlag, handleDoubleClickCard, ref }) => {
     $body.append(Modal({ todoId, handleRenderFlag }));
   };
 
-  const handleXButton = (target) => {
+  const handleXButtonHover = ({ target }) => {
     const $path = target.querySelector(`.${styles.path}`) || target;
     const $cardElement = target.closest(`.${styles.card}`);
 
     $path.classList.toggle(styles.pathMouseOver);
     $cardElement.classList.toggle(styles.cardMouseOver);
-  };
-
-  const onXButtonOver = ({ target }) => {
-    handleXButton(target);
-  };
-
-  const onXButtonOut = ({ target }) => {
-    handleXButton(target);
   };
 
   const onXButtonClick = ({ target }) => {
@@ -55,8 +47,8 @@ const Card = ({ todo, handleRenderFlag, handleDoubleClickCard, ref }) => {
     tag: "div",
     attrs: {
       onClick: onXButtonClick,
-      onMouseOver: onXButtonOver,
-      onMouseOut: onXButtonOut,
+      onMouseOver: handleXButtonHover,
+      onMouseOut: handleXButtonHover,
     },
     child: [xButtonInnerHTML],
   });
