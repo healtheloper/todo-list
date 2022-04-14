@@ -1,4 +1,5 @@
 import peact from "../../../core/peact";
+import Button from "../../../tagComponents/Button";
 import styles from "./cardWritable.module.css";
 
 const CardWritable = ({ displayClassName }) => {
@@ -32,19 +33,15 @@ const CardWritable = ({ displayClassName }) => {
     $cardWritable.classList.toggle(displayClassName);
   };
 
-  const $cancelButton = peact.createElement({
-    tag: "button",
+  const $cancelButton = Button({
+    onClick: onCancelButtonClick,
     className: [styles.button, styles.cancelButton],
-    attrs: {
-      onClick: onCancelButtonClick,
-    },
-    child: ["취소"],
+    innerHTML: "취소",
   });
 
-  const $confirmButton = peact.createElement({
-    tag: "button",
+  const $confirmButton = Button({
     className: [styles.button, styles.confirmButton, styles.activeButton],
-    child: ["등록"],
+    innerHTML: "등록",
   });
 
   const $buttonArea = peact.createElement({
