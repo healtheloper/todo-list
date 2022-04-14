@@ -3,7 +3,7 @@ import Button from "../../tagComponents/Button";
 import Action from "./Action/Action";
 import styles from "./sideContent.module.css";
 
-const menuBtnTag = `
+const menuBtnImageTemplate = `
   <svg
       width="17"
       height="11"
@@ -18,7 +18,7 @@ const menuBtnTag = `
   </svg>
 `;
 
-const closeBtnTag = `
+const closeBtnImageTemplate = `
   <svg
     width="12"
     height="12"
@@ -51,7 +51,7 @@ const SideContent = ({ todoLogs, columns }) => {
     });
   };
 
-  const handleCloseBtn = ({ target }) => {
+  const handleClickCloseBtn = ({ target }) => {
     const $closeBtn = target.closest(`.${styles.closeBtn}`);
     const $actions = $closeBtn.parentNode;
     const $menuBtn = $actions.parentNode.querySelector(`.${styles.menuBtn}`);
@@ -64,8 +64,8 @@ const SideContent = ({ todoLogs, columns }) => {
 
   const $closeBtn = Button({
     className: styles.closeBtn,
-    onClick: handleCloseBtn,
-    innerHTML: closeBtnTag,
+    onClick: handleClickCloseBtn,
+    innerHTML: closeBtnImageTemplate,
   });
 
   const $actions = peact.createElement({
@@ -74,7 +74,7 @@ const SideContent = ({ todoLogs, columns }) => {
     child: [$actionsWrap, $closeBtn],
   });
 
-  const handleMenuBtn = ({ target }) => {
+  const handleClickMenuBtn = ({ target }) => {
     const $menuBtn = target.closest(`.${styles.menuBtn}`);
     const elements = [
       { element: $actions, className: styles.active },
@@ -85,8 +85,8 @@ const SideContent = ({ todoLogs, columns }) => {
 
   const $menuBtn = Button({
     className: [styles.menuBtn, styles.btnActive],
-    onClick: handleMenuBtn,
-    innerHTML: menuBtnTag,
+    onClick: handleClickMenuBtn,
+    innerHTML: menuBtnImageTemplate,
   });
 
   return peact.createElement({
