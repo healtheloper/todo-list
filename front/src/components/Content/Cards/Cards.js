@@ -13,10 +13,12 @@ const Cards = ({ $newCard, todos, handleRenderFlag }) => {
   const getCard = (todo) => {
     const cardRef = peact.useRef();
     const cardWritableRef = peact.useRef();
+
     const handleNewCardVisibility = () => {
       cardsRef.current.removeChild(cardWritableRef.current);
       cardRef.current.classList.toggle(cardStyles.hide);
     };
+
     const handleSubmitForm = async (event) => {
       event.preventDefault();
       const { title, desc, author } = event.target;
@@ -29,6 +31,7 @@ const Cards = ({ $newCard, todos, handleRenderFlag }) => {
       cardsRef.current.removeChild(cardWritableRef.current);
       handleRenderFlag();
     };
+
     const handleDoubleClickCard = () => {
       const $card = cardRef.current;
       const $title = $card.querySelector(`.${cardStyles.title}`);
@@ -36,11 +39,11 @@ const Cards = ({ $newCard, todos, handleRenderFlag }) => {
       const $author = $card.querySelector(`.${cardStyles.author}`);
 
       const inputValues = {
-        todoId: todo._id,
         title: $title.textContent,
         desc: $desc.textContent,
         author: $author.textContent,
       };
+
       const $cardWritable = CardWritable({
         handleNewCardVisibility,
         handleSubmitForm,
@@ -53,6 +56,7 @@ const Cards = ({ $newCard, todos, handleRenderFlag }) => {
       cardsRef.current.insertBefore($cardWritable, $card);
       $card.classList.toggle(cardStyles.hide);
     };
+
     return Card({
       todo,
       handleRenderFlag,

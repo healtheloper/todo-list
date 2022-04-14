@@ -2,12 +2,37 @@ import peact from "../../../core/peact";
 import Button from "../../../tagComponents/Button";
 import styles from "./cardWritable.module.css";
 
+const activateButton = ($button, activeClassName) => {
+  $button.removeAttribute("disabled");
+  $button.classList.add(activeClassName);
+  $button.style.cursor = "pointer";
+};
+
+const deactivateButton = ($button, activeClassName) => {
+  $button.setAttribute("disabled", "");
+  $button.classList.remove(activeClassName);
+  $button.style.cursor = "default";
+};
+
 const CardWritable = ({
   handleNewCardVisibility,
   handleSubmitForm,
   inputValues,
   ref,
 }) => {
+  const addButtonRef = peact.useRef();
+
+  const handleKeyUpInput = ({ target }) => {
+    const $addButton = addButtonRef.current;
+    const isInputEmpty = target.value === "";
+    const isInputActive = $addButton.classList.contains(styles.activeButton);
+    if (isInputEmpty && isInputActive) {
+      deactivateButton($addButton, styles.activeButton);
+    } else if (!isInputActive) {
+      activateButton($addButton, styles.activeButton);
+    }
+  };
+
   const $inputAuthor = peact.createElement({
     tag: "input",
     className: styles.author,
@@ -27,6 +52,7 @@ const CardWritable = ({
       type: "text",
       name: "desc",
       placeholder: "내용을 입력하세요",
+      onKeyUp: handleKeyUpInput,
     },
     child: [],
   });
@@ -39,6 +65,7 @@ const CardWritable = ({
       type: "text",
       name: "title",
       placeholder: "제목을 입력하세요",
+      onKeyUp: handleKeyUpInput,
     },
     child: [],
   });
@@ -60,6 +87,7 @@ const CardWritable = ({
     className: [styles.button, styles.confirmButton, styles.activeButton],
     innerHTML: "등록",
     type: "submit",
+    ref: addButtonRef,
   });
 
   const $buttonArea = peact.createElement({

@@ -9,7 +9,6 @@ const client = axios.create({
 const todoApi = {
   getTodos: async () => {
     const response = await client.get();
-
     return response.data.results;
   },
   deleteTodo: async (id) => {
