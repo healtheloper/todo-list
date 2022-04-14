@@ -2,7 +2,7 @@ import peact from "../../../core/peact";
 import styles from "./columnHeader.module.css";
 
 const ColumnHeader = ({ column, todos, handleNewCardVisibility }) => {
-  const handleButtonOverOut = (target, buttonName) => {
+  const handleButtonHover = (target, buttonName) => {
     const targetButton = target.closest(`.${styles[buttonName]}`) || target;
     targetButton.classList.toggle(styles[`${buttonName}Over`]);
   };
@@ -26,8 +26,8 @@ const ColumnHeader = ({ column, todos, handleNewCardVisibility }) => {
     tag: "div",
     className: styles.plusButton,
     attrs: {
-      onMouseOver: ({ target }) => handleButtonOverOut(target, "plusButton"),
-      onMouseOut: ({ target }) => handleButtonOverOut(target, "plusButton"),
+      onMouseOver: ({ target }) => handleButtonHover(target, "plusButton"),
+      onMouseOut: ({ target }) => handleButtonHover(target, "plusButton"),
       onClick: handleNewCardVisibility,
     },
     child: [plusButtonImgTemplate],
@@ -42,8 +42,8 @@ const ColumnHeader = ({ column, todos, handleNewCardVisibility }) => {
     tag: "div",
     className: styles.xButton,
     attrs: {
-      onMouseOver: ({ target }) => handleButtonOverOut(target, "xButton"),
-      onMouseOut: ({ target }) => handleButtonOverOut(target, "xButton"),
+      onMouseOver: ({ target }) => handleButtonHover(target, "xButton"),
+      onMouseOut: ({ target }) => handleButtonHover(target, "xButton"),
     },
     child: [deleteButtonImgTemplate],
   });

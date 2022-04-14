@@ -81,8 +81,8 @@ const CardWritable = ({
     type: "button",
   });
 
-  const $confirmButton = Button({
-    className: [styles.button, styles.confirmButton],
+  const $addButton = Button({
+    className: [styles.button, styles.addButton],
     innerHTML: "등록",
     type: "submit",
     ref: addButtonRef,
@@ -91,7 +91,7 @@ const CardWritable = ({
   const $buttonArea = peact.createElement({
     tag: "div",
     className: styles.buttons,
-    child: [$cancelButton, $confirmButton],
+    child: [$cancelButton, $addButton],
   });
 
   return peact.createElement({
