@@ -2,14 +2,30 @@ import peact from "../../../core/peact";
 import Button from "../../../tagComponents/Button";
 import styles from "./cardWritable.module.css";
 
-const CardWritable = ({ handleNewCardVisibility, ref }) => {
+const CardWritable = ({
+  handleNewCardVisibility,
+  handleSubmitForm,
+  inputValues,
+  ref,
+}) => {
+  const $inputAuthor = peact.createElement({
+    tag: "input",
+    className: styles.author,
+    attrs: {
+      value: inputValues ? inputValues.author : "",
+      type: "hidden",
+      name: "author",
+    },
+    child: [],
+  });
+
   const $inputDesc = peact.createElement({
     tag: "input",
     className: styles.cardDescInput,
     attrs: {
-      value: "",
+      value: inputValues ? inputValues.desc : "",
       type: "text",
-      name: "card-content",
+      name: "desc",
       placeholder: "내용을 입력하세요",
     },
     child: [],
@@ -19,9 +35,9 @@ const CardWritable = ({ handleNewCardVisibility, ref }) => {
     tag: "input",
     className: styles.cardTitleInput,
     attrs: {
-      value: "",
+      value: inputValues ? inputValues.title : "",
       type: "text",
-      name: "card-title",
+      name: "title",
       placeholder: "제목을 입력하세요",
     },
     child: [],
@@ -37,11 +53,13 @@ const CardWritable = ({ handleNewCardVisibility, ref }) => {
     onClick: handleNewCardVisibility,
     className: [styles.button, styles.cancelButton],
     innerHTML: "취소",
+    type: "button",
   });
 
   const $confirmButton = Button({
     className: [styles.button, styles.confirmButton, styles.activeButton],
     innerHTML: "등록",
+    type: "submit",
   });
 
   const $buttonArea = peact.createElement({
@@ -51,9 +69,12 @@ const CardWritable = ({ handleNewCardVisibility, ref }) => {
   });
 
   return peact.createElement({
-    tag: "div",
-    className: [styles.cardWritable],
-    child: [$cardWritableHeader, $inputDesc, $buttonArea],
+    tag: "form",
+    className: styles.cardWritable,
+    attrs: {
+      onSubmit: handleSubmitForm,
+    },
+    child: [$inputAuthor, $cardWritableHeader, $inputDesc, $buttonArea],
     ref,
   });
 };

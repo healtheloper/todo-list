@@ -12,9 +12,12 @@ const todoApi = {
 
     return response.data.results;
   },
-
   deleteTodo: async (id) => {
     const response = await client.delete(`delete/${id}`);
+    return response.data.results;
+  },
+  updateTodo: async (todoId, updateData) => {
+    const response = await client.patch(`update/${todoId}`, updateData);
     return response.data.results;
   },
 };
