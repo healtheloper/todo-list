@@ -1,6 +1,10 @@
 const { pipe } = require("./utils");
 
-const getDateDiff = ({ prevDate, nextDate }) => {
+export const getISODateDiff = (aISODate, bISODate) => {
+  return new Date(aISODate) - new Date(bISODate);
+};
+
+const getDateDiffInOrder = ({ prevDate, nextDate }) => {
   return new Date(nextDate) - new Date(prevDate);
 };
 
@@ -37,7 +41,10 @@ const diffToString = (date) => {
 };
 
 export const getDateDiffFormat = ({ prev, next }) => {
-  return pipe(getDateDiff, diffToString)({ prevDate: prev, nextDate: next });
+  return pipe(
+    getDateDiffInOrder,
+    diffToString
+  )({ prevDate: prev, nextDate: next });
 };
 
 export const getMongoNow = () => {
