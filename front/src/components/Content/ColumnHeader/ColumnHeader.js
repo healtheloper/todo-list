@@ -1,7 +1,7 @@
 import peact from "../../../core/peact";
 import styles from "./columnHeader.module.css";
 
-const ColumnHeader = ({ column, todos, handleCardWritableVisibility }) => {
+const ColumnHeader = ({ column, todos, handleNewCardVisibility }) => {
   const handleButtonOverOut = (target, buttonName) => {
     const targetButton = target.closest(`.${styles[buttonName]}`) || target;
     targetButton.classList.toggle(styles[`${buttonName}Over`]);
@@ -28,7 +28,7 @@ const ColumnHeader = ({ column, todos, handleCardWritableVisibility }) => {
     attrs: {
       onMouseOver: ({ target }) => handleButtonOverOut(target, "plusButton"),
       onMouseOut: ({ target }) => handleButtonOverOut(target, "plusButton"),
-      onClick: handleCardWritableVisibility,
+      onClick: handleNewCardVisibility,
     },
     child: [plusButtonImgTemplate],
   });

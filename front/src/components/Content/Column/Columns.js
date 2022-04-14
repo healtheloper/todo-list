@@ -9,32 +9,32 @@ const Columns = ({ columns, todos, handleRenderFlag }) => {
     return todos.filter((todo) => todo.columnId === columnId);
   };
 
-  const getColumnHeaderElement = ({ column, handleCardWritableVisibility }) =>
+  const getColumnHeaderElement = ({ column, handleNewCardVisibility }) =>
     ColumnHeader({
       column,
       todos: getTodosByColumnId(column._id),
-      handleCardWritableVisibility,
+      handleNewCardVisibility,
     });
 
-  const getCardsElement = ({ $cardWritable, column }) =>
+  const getCardsElement = ({ $newCard, column }) =>
     Cards({
-      $cardWritable,
+      $newCard,
       todos: getTodosByColumnId(column._id),
       handleRenderFlag,
     });
 
   const getColumnElement = (column) => {
-    const $cardWritable = CardWritable();
-    const handleCardWritableVisibility = () => {
-      $cardWritable.classList.toggle(styles.visible);
-    };
+    const $newCard = CardWritable({ handleNewCardVisibility });
+    function handleNewCardVisibility() {
+      $newCard.classList.toggle(styles.visible);
+    }
 
     return peact.createElement({
       tag: "div",
       className: styles.column,
       child: [
-        getColumnHeaderElement({ column, handleCardWritableVisibility }),
-        getCardsElement({ $cardWritable, column }),
+        getColumnHeaderElement({ column, handleNewCardVisibility }),
+        getCardsElement({ $newCard, column }),
       ],
     });
   };
