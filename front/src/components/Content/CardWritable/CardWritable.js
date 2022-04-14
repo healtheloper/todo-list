@@ -2,12 +2,17 @@ import peact from "../../../core/peact";
 import Button from "../../../tagComponents/Button";
 import styles from "./cardWritable.module.css";
 
-const CardWritable = ({ displayClassName }) => {
+const CardWritable = () => {
   const $inputDesc = peact.createElement({
-    tag: "div",
-    child: [
-      `<input type="text" value="" class="${styles.cardDescInput}" name="card-content" placeholder="내용을 입력하세요"/>`,
-    ],
+    tag: "input",
+    className: styles.cardDescInput,
+    attrs: {
+      value: "",
+      type: "text",
+      name: "card-content",
+      placeholder: "내용을 입력하세요",
+    },
+    child: [],
   });
 
   const $inputTitle = peact.createElement({
@@ -16,7 +21,7 @@ const CardWritable = ({ displayClassName }) => {
     attrs: {
       value: "",
       type: "text",
-      name: "name-title",
+      name: "card-title",
       placeholder: "제목을 입력하세요",
     },
     child: [],
@@ -28,9 +33,8 @@ const CardWritable = ({ displayClassName }) => {
     child: [$inputTitle],
   });
 
-  const onCancelButtonClick = ({ target }) => {
-    const $cardWritable = target.closest(`.${"cardWritable"}`);
-    $cardWritable.classList.toggle(displayClassName);
+  const onCancelButtonClick = () => {
+    // handleCardWritableShown();
   };
 
   const $cancelButton = Button({
@@ -52,7 +56,7 @@ const CardWritable = ({ displayClassName }) => {
 
   return peact.createElement({
     tag: "div",
-    className: [styles.cardWritable, "cardWritable", styles.hidden],
+    className: [styles.cardWritable],
     child: [$cardWritableHeader, $inputDesc, $buttonArea],
   });
 };

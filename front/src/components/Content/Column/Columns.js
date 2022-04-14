@@ -1,5 +1,6 @@
 import peact from "../../../core/peact";
 import Cards from "../Cards/Cards";
+import CardWritable from "../CardWritable/CardWritable";
 import ColumnHeader from "../ColumnHeader/ColumnHeader";
 import styles from "./columns.module.css";
 
@@ -8,13 +9,32 @@ const Columns = ({ columns, todos, handleRenderFlag }) => {
     return todos.filter((todo) => todo.columnId === columnId);
   };
 
-  const getColumnTemplate = (column) => {
+  const getColumnHeaderElement = ({ column, handleCardWritableVisibility }) =>
+    ColumnHeader({
+      column,
+      todos: getTodosByColumnId(column._id),
+      handleCardWritableVisibility,
+    });
+
+  const getCardsElement = ({ $cardWritable, column }) =>
+    Cards({
+      $cardWritable,
+      todos: getTodosByColumnId(column._id),
+      handleRenderFlag,
+    });
+
+  const getColumnElement = (column) => {
+    const $cardWritable = CardWritable();
+    const handleCardWritableVisibility = () => {
+      $cardWritable.classList.toggle(styles.visible);
+    };
+
     return peact.createElement({
       tag: "div",
       className: styles.column,
       child: [
-        ColumnHeader({ column, todos: getTodosByColumnId(column._id) }),
-        Cards({ todos: getTodosByColumnId(column._id), handleRenderFlag }),
+        getColumnHeaderElement({ column, handleCardWritableVisibility }),
+        getCardsElement({ $cardWritable, column }),
       ],
     });
   };
@@ -22,7 +42,7 @@ const Columns = ({ columns, todos, handleRenderFlag }) => {
   return peact.createElement({
     tag: "div",
     className: styles.content,
-    child: columns.map(getColumnTemplate),
+    child: columns.map(getColumnElement),
   });
 };
 

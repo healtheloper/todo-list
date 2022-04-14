@@ -1,17 +1,10 @@
 import peact from "../../../core/peact";
-import CardWritable from "../CardWritable/CardWritable";
 import styles from "./columnHeader.module.css";
 
-const ColumnHeader = ({ column, todos }) => {
+const ColumnHeader = ({ column, todos, handleCardWritableVisibility }) => {
   const handleButtonOverOut = (target, buttonName) => {
     const targetButton = target.closest(`.${styles[buttonName]}`) || target;
     targetButton.classList.toggle(styles[`${buttonName}Over`]);
-  };
-
-  const onPlusButtonClick = ({ target }) => {
-    const $currentHeader = target.closest(".header");
-    const $cardWritable = $currentHeader.querySelector(".cardWritable");
-    $cardWritable.classList.toggle(styles.display);
   };
 
   const todosCount = todos.length;
@@ -35,7 +28,7 @@ const ColumnHeader = ({ column, todos }) => {
     attrs: {
       onMouseOver: ({ target }) => handleButtonOverOut(target, "plusButton"),
       onMouseOut: ({ target }) => handleButtonOverOut(target, "plusButton"),
-      onClick: onPlusButtonClick,
+      onClick: handleCardWritableVisibility,
     },
     child: [plusButtonImgTemplate],
   });
@@ -70,10 +63,7 @@ const ColumnHeader = ({ column, todos }) => {
   return peact.createElement({
     tag: "div",
     className: [styles.header, "header"],
-    child: [
-      $columnTitleArea,
-      CardWritable({ displayClassName: styles.display }),
-    ],
+    child: [$columnTitleArea],
   });
 };
 

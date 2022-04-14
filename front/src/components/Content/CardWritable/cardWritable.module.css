@@ -1,6 +1,6 @@
 .cardWritable {
   height: 140px;
-  display: flex;
+  display: none;
   flex-direction: column;
   justify-content: space-between;
   background-color: #fff;
@@ -67,8 +67,4 @@
 .activeButton {
   color: #fff;
   background: #0075de;
-}
-
-.hidden {
-  display: none;
 }
