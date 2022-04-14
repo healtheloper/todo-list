@@ -82,7 +82,7 @@ const CardWritable = ({
   });
 
   const $confirmButton = Button({
-    className: [styles.button, styles.confirmButton, styles.activeButton],
+    className: [styles.button, styles.confirmButton],
     innerHTML: "등록",
     type: "submit",
     ref: addButtonRef,
