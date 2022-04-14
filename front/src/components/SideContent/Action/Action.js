@@ -16,7 +16,7 @@ const Action = ({ todoLog }) => {
         <p class="author">${author}</p>
         <p class="content">
             <strong>${columnTitle}</strong>에 <strong>${title}</strong>를
-            <strong>${LOG_TYPE[type]}</strong>하였습니다.
+            <strong>${LOG_TYPE[type.toUpperCase()]}</strong>하였습니다.
         </p>
         <p class="${styles.time}">1분 전</p>
     </div>
