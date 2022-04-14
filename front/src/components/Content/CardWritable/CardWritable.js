@@ -7,7 +7,7 @@ const activateButton = ($button, deactiveClassName) => {
   $button.classList.remove(deactiveClassName);
 };
 
-const deactivateButton = ($button, deactiveClassName) => {
+const deactivateButn = ($button, deactiveClassName) => {
   $button.setAttribute("disabled", "");
   $button.classList.add(deactiveClassName);
 };
@@ -25,7 +25,7 @@ const CardWritable = ({
     const isInputEmpty = target.value === "";
     const isInputActive = !$addButton.classList.contains(styles.deactiveButton);
     if (isInputEmpty && isInputActive) {
-      deactivateButton($addButton, styles.deactiveButton);
+      deactivateButn($addButton, styles.deactiveButton);
     } else if (!isInputActive) {
       activateButton($addButton, styles.deactiveButton);
     }
@@ -81,12 +81,22 @@ const CardWritable = ({
     type: "button",
   });
 
-  const $addButton = Button({
+  const addButtonProps = {
     className: [styles.button, styles.addButton],
     innerHTML: "등록",
     type: "submit",
     ref: addButtonRef,
-  });
+  };
+
+  if (!inputValues) {
+    Object.defineProperty(addButtonProps, "disabled", { value: "" }); // 외않되...
+    addButtonProps.className = [
+      ...addButtonProps.className,
+      styles.deactiveButton,
+    ];
+  }
+
+  const $addButton = Button(addButtonProps);
 
   const $buttonArea = peact.createElement({
     tag: "div",
