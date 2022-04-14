@@ -48,6 +48,7 @@ const App = () => {
   const modalHandlers = {
     handleRenderFlag,
     selectedTodoId,
+    setSelectedTodoId,
     handleModalVisibility,
   };
 
