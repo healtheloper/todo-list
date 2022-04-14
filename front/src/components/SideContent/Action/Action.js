@@ -10,7 +10,7 @@ import styles from "./action.module.css";
 const Action = ({ todoLog }) => {
   const { columnTitle, title, author, type } = todoLog;
 
-  const actionInnerHTML = `
+  const actionTemplate = `
     <div class="${styles.icon}">🥳</div>
     <div class="content">
         <p class="author">${author}</p>
@@ -21,10 +21,11 @@ const Action = ({ todoLog }) => {
         <p class="${styles.time}">1분 전</p>
     </div>
   `;
+
   return peact.createElement({
     tag: "div",
     className: styles.action,
-    child: [actionInnerHTML],
+    child: [actionTemplate],
   });
 };
 
