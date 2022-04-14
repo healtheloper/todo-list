@@ -3,26 +3,9 @@ import CardWritable from "../CardWritable/CardWritable";
 import styles from "./columnHeader.module.css";
 
 const ColumnHeader = ({ column, todos }) => {
-  const handleButton = ({ target, targetClassName, toggleClassName }) => {
-    const targetButton =
-      target.closest(`.${styles[targetClassName]}`) || target;
-    targetButton.classList.toggle(styles[toggleClassName]);
-  };
-
-  const onPlusButtonOver = ({ target }) => {
-    handleButton({
-      target,
-      targetClassName: "plusButton",
-      toggleClassName: "plusButtonOver",
-    });
-  };
-
-  const onPlusButtonOut = ({ target }) => {
-    handleButton({
-      target,
-      targetClassName: "plusButton",
-      toggleClassName: "plusButtonOver",
-    });
+  const handlePlusButtonOverOut = ({ target }) => {
+    const targetButton = target.closest(`.${styles.plusButton}`) || target;
+    targetButton.classList.toggle(styles.plusButtonOver);
   };
 
   const onPlusButtonClick = ({ target }) => {
@@ -31,20 +14,9 @@ const ColumnHeader = ({ column, todos }) => {
     $cardWritable.classList.toggle(styles.display);
   };
 
-  const onXButtonOver = ({ target }) => {
-    handleButton({
-      target,
-      targetClassName: "xButton",
-      toggleClassName: "xButtonOver",
-    });
-  };
-
-  const onXButtonOut = ({ target }) => {
-    handleButton({
-      target,
-      targetClassName: "xButton",
-      toggleClassName: "xButtonOver",
-    });
+  const handleXButtonOverOut = ({ target }) => {
+    const targetButton = target.closest(`.${styles.xButton}`) || target;
+    targetButton.classList.toggle(styles.xButtonOver);
   };
 
   const todosCount = todos.length;
@@ -54,7 +26,7 @@ const ColumnHeader = ({ column, todos }) => {
   const $columnTitleWrap = peact.createElement({
     tag: "div",
     className: styles.titleWrap,
-    child: [columTitleTemplate, cardsCountTemplate],
+    child: [columTitleTemplate + cardsCountTemplate],
   });
 
   const plusButtonImgTemplate = `
@@ -66,8 +38,8 @@ const ColumnHeader = ({ column, todos }) => {
     tag: "div",
     className: styles.plusButton,
     attrs: {
-      onMouseOver: onPlusButtonOver,
-      onMouseOut: onPlusButtonOut,
+      onMouseOver: handlePlusButtonOverOut,
+      onMouseOut: handlePlusButtonOverOut,
       onClick: onPlusButtonClick,
     },
     child: [plusButtonImgTemplate],
@@ -82,8 +54,8 @@ const ColumnHeader = ({ column, todos }) => {
     tag: "div",
     className: styles.xButton,
     attrs: {
-      onMouseOver: onXButtonOver,
-      onMouseOut: onXButtonOut,
+      onMouseOver: handleXButtonOverOut,
+      onMouseOut: handleXButtonOverOut,
     },
     child: [deleteButtonImgTemplate],
   });
