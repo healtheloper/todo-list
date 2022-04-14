@@ -43,6 +43,7 @@ const Card = ({ todo, handlers, ref }) => {
 
   const $xButtonWrap = peact.createElement({
     tag: "div",
+    className: styles.xButtonWrap,
     attrs: {
       onClick: onXButtonClick,
       onMouseOver: handleXButtonHover,
