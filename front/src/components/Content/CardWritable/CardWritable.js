@@ -16,6 +16,7 @@ const CardWritable = ({
   handleNewCardVisibility,
   handleSubmitForm,
   inputValues,
+  columnId,
   ref,
 }) => {
   const addButtonRef = peact.useRef();
@@ -108,6 +109,7 @@ const CardWritable = ({
     tag: "form",
     className: styles.cardWritable,
     attrs: {
+      id: columnId,
       onSubmit: handleSubmitForm,
     },
     child: [$inputAuthor, $cardWritableHeader, $inputDesc, $buttonArea],

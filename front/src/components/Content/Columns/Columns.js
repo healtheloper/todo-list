@@ -1,4 +1,5 @@
 import peact from "../../../core/peact";
+import todoApi from "../../../service/todoApi";
 import Cards from "../Cards/Cards";
 import CardWritable from "../CardWritable/CardWritable";
 import ColumnHeader from "../ColumnHeader/ColumnHeader";
@@ -23,12 +24,32 @@ const Columns = ({ columns, todos, handleRenderFlag }) => {
       handleRenderFlag,
     });
 
+  const handleSubmitForm = async (event) => {
+    event.preventDefault();
+    const { title, desc, author, id } = event.target;
+
+    const requestBody = {
+      title: title.value,
+      desc: desc.value,
+      author: author.value,
+      columnId: id,
+    };
+
+    await todoApi.postTodo(requestBody);
+    handleRenderFlag();
+  };
+
   const createColumnElement = (column) => {
     const newCardRef = peact.useRef();
     const handleNewCardVisibility = () => {
       newCardRef.current.classList.toggle(styles.visible);
     };
-    const $newCard = CardWritable({ handleNewCardVisibility, ref: newCardRef });
+    const $newCard = CardWritable({
+      handleNewCardVisibility,
+      ref: newCardRef,
+      handleSubmitForm,
+      columnId: column._id,
+    });
 
     return peact.createElement({
       tag: "div",
