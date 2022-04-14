@@ -7,7 +7,7 @@ const activateButton = ($button, deactiveClassName) => {
   $button.classList.remove(deactiveClassName);
 };
 
-const deactivateButn = ($button, deactiveClassName) => {
+const deactivateButton = ($button, deactiveClassName) => {
   $button.setAttribute("disabled", "");
   $button.classList.add(deactiveClassName);
 };
@@ -26,7 +26,7 @@ const CardWritable = ({
     const isInputEmpty = target.value === "";
     const isInputActive = !$addButton.classList.contains(styles.deactiveButton);
     if (isInputEmpty && isInputActive) {
-      deactivateButn($addButton, styles.deactiveButton);
+      deactivateButton($addButton, styles.deactiveButton);
     } else if (!isInputActive) {
       activateButton($addButton, styles.deactiveButton);
     }
