@@ -53,11 +53,9 @@ const Cards = ({ $newCard, todos, handlers }) => {
         toggleCardVisible,
         handleSubmitForm,
         inputValues,
+        isVisible: true,
         ref: cardWritableRef,
       });
-      // TODO: CardWritable 만들 때 display 속성 props 로 넘겨서 만드는게 좋을 듯
-      $cardWritable.style.display = "flex";
-      //
       cardsRef.current.insertBefore($cardWritable, $card);
       $card.classList.toggle(cardStyles.hide);
     };

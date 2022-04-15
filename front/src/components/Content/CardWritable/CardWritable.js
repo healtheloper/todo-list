@@ -17,13 +17,18 @@ const CardWritable = ({
   handleSubmitForm,
   inputValues,
   columnId,
+  isVisible,
   ref,
 }) => {
   const addButtonRef = peact.useRef();
+  const inputTitleRef = peact.useRef();
+  const inputDescRef = peact.useRef();
 
-  const handleKeyUpInput = ({ target }) => {
+  const handleKeyUpInput = () => {
     const $addButton = addButtonRef.current;
-    const isInputEmpty = target.value === "";
+    const $inputTitle = inputTitleRef.current;
+    const $inputDesc = inputDescRef.current;
+    const isInputEmpty = $inputTitle.value === "" || $inputDesc.value === "";
     const isInputActive = !$addButton.classList.contains(styles.deactiveButton);
     if (isInputEmpty && isInputActive) {
       deactivateButton($addButton, styles.deactiveButton);
@@ -54,6 +59,7 @@ const CardWritable = ({
       onKeyUp: handleKeyUpInput,
     },
     child: [],
+    ref: inputDescRef,
   });
 
   const $inputTitle = peact.createElement({
@@ -67,6 +73,7 @@ const CardWritable = ({
       onKeyUp: handleKeyUpInput,
     },
     child: [],
+    ref: inputTitleRef,
   });
 
   const $cardWritableHeader = peact.createElement({
@@ -107,7 +114,7 @@ const CardWritable = ({
 
   return peact.createElement({
     tag: "form",
-    className: styles.cardWritable,
+    className: [styles.cardWritable, ...(isVisible ? [styles.show] : [])],
     attrs: {
       "data-column-id": columnId,
       onSubmit: handleSubmitForm,

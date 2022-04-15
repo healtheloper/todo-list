@@ -49,11 +49,13 @@ const Columns = ({ columns, todos, handlers }) => {
     const toggleCardVisible = () => {
       newCardRef.current.classList.toggle(styles.visible);
     };
+
     const $newCard = CardWritable({
       toggleCardVisible,
-      ref: newCardRef,
       handleSubmitForm,
       columnId: column._id,
+      isVisible: false,
+      ref: newCardRef,
     });
 
     return peact.createElement({
