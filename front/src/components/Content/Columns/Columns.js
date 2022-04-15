@@ -10,11 +10,11 @@ const Columns = ({ columns, todos, handleRenderFlag }) => {
     return todos.filter((todo) => todo.columnId === columnId);
   };
 
-  const createColumnHeaderElement = ({ column, handleNewCardVisibility }) =>
+  const createColumnHeaderElement = ({ column, toggleCardVisible }) =>
     ColumnHeader({
       column,
       todos: getTodosByColumnId(column._id),
-      handleNewCardVisibility,
+      toggleCardVisible,
     });
 
   const createCardsElement = ({ $newCard, column }) =>
@@ -46,11 +46,11 @@ const Columns = ({ columns, todos, handleRenderFlag }) => {
 
   const createColumnElement = (column) => {
     const newCardRef = peact.useRef();
-    const handleNewCardVisibility = () => {
+    const toggleCardVisible = () => {
       newCardRef.current.classList.toggle(styles.visible);
     };
     const $newCard = CardWritable({
-      handleNewCardVisibility,
+      toggleCardVisible,
       ref: newCardRef,
       handleSubmitForm,
       columnId: column._id,
@@ -60,7 +60,7 @@ const Columns = ({ columns, todos, handleRenderFlag }) => {
       tag: "div",
       className: styles.column,
       child: [
-        createColumnHeaderElement({ column, handleNewCardVisibility }),
+        createColumnHeaderElement({ column, toggleCardVisible }),
         createCardsElement({ $newCard, column }),
       ],
     });

@@ -13,7 +13,7 @@ const deactivateButton = ($button, deactiveClassName) => {
 };
 
 const CardWritable = ({
-  handleNewCardVisibility,
+  toggleCardVisible,
   handleSubmitForm,
   inputValues,
   columnId,
@@ -76,7 +76,7 @@ const CardWritable = ({
   });
 
   const $cancelButton = Button({
-    onClick: handleNewCardVisibility,
+    onClick: toggleCardVisible,
     className: [styles.button, styles.cancelButton],
     innerHTML: "취소",
     type: "button",

@@ -1,7 +1,7 @@
 import peact from "../../../core/peact";
 import styles from "./columnHeader.module.css";
 
-const ColumnHeader = ({ column, todos, handleNewCardVisibility }) => {
+const ColumnHeader = ({ column, todos, toggleCardVisible }) => {
   const hoverButton = ($button, className) => {
     $button.classList.toggle(className);
   };
@@ -35,7 +35,7 @@ const ColumnHeader = ({ column, todos, handleNewCardVisibility }) => {
     attrs: {
       onMouseOver: handleHoverPlusButton,
       onMouseOut: handleHoverPlusButton,
-      onClick: handleNewCardVisibility,
+      onClick: toggleCardVisible,
     },
     child: [plusButtonImgTemplate],
   });
