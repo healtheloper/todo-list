@@ -19,8 +19,8 @@ const todoApi = {
     const response = await client.patch(`update/${todoId}`, updateData);
     return response.data.results;
   },
-  postTodo: async (newData) => {
-    const response = await client.post(`create/`, newData);
+  createTodo: async (newData) => {
+    const response = await client.post(`create`, newData);
     return response.data.results;
   },
 };

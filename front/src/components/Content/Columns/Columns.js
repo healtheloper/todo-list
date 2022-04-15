@@ -26,16 +26,21 @@ const Columns = ({ columns, todos, handleRenderFlag }) => {
 
   const handleSubmitForm = async (event) => {
     event.preventDefault();
-    const { title, desc, author, id } = event.target;
+    const {
+      title,
+      desc,
+      author,
+      dataset: { columnId },
+    } = event.target;
 
     const requestBody = {
       title: title.value,
       desc: desc.value,
       author: author.value,
-      columnId: id,
+      columnId,
     };
 
-    await todoApi.postTodo(requestBody);
+    await todoApi.createTodo(requestBody);
     handleRenderFlag();
   };
 

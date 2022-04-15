@@ -109,7 +109,7 @@ const CardWritable = ({
     tag: "form",
     className: styles.cardWritable,
     attrs: {
-      id: columnId,
+      "data-column-id": columnId,
       onSubmit: handleSubmitForm,
     },
     child: [$inputAuthor, $cardWritableHeader, $inputDesc, $buttonArea],
