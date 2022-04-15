@@ -1,8 +1,9 @@
-import { getISODateDiff } from "../../common/dateUtils";
-import { pipe } from "../../common/utils";
-import peact from "../../core/peact";
-import Button from "../../tagComponents/Button";
-import Action from "./Action/Action";
+import { getISODateDiff } from "common/dateUtils";
+import { pipe } from "common/utils";
+import Action from "components/SideContent/Action/Action";
+import peact from "core/peact";
+import Button from "tagComponents/Button";
+
 import styles from "./sideContent.module.css";
 
 const menuBtnImageTemplate = `

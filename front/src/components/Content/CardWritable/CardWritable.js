@@ -1,5 +1,6 @@
-import peact from "../../../core/peact";
-import Button from "../../../tagComponents/Button";
+import peact from "core/peact";
+import Button from "tagComponents/Button";
+
 import styles from "./cardWritable.module.css";
 
 const activateButton = ($button, deactiveClassName) => {

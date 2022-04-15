@@ -1,9 +1,10 @@
-import { getISODateDiff } from "../../../common/dateUtils";
-import peact from "../../../core/peact";
-import todoApi from "../../../service/todoApi";
-import Card from "../Card/Card";
-import cardStyles from "../Card/card.module.css";
-import CardWritable from "../CardWritable/CardWritable";
+import { getISODateDiff } from "common/dateUtils";
+import Card from "components/Content/Card/Card";
+import cardStyles from "components/Content/Card/card.module.css";
+import CardWritable from "components/Content/CardWritable/CardWritable";
+import peact from "core/peact";
+import todoApi from "service/todoApi";
+
 import styles from "./cards.module.css";
 
 const getSortedDatabyLatest = (data) => {
