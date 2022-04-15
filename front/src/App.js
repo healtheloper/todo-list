@@ -27,6 +27,10 @@ const App = () => {
     setIsModalVisible(!isModalVisible);
   };
 
+  const handleSelectedTodoId = (todoId) => {
+    setSelectedTodoId(todoId);
+  };
+
   peact.useEffect(() => {
     const fetchTodos = async () => {
       const newTodos = await todoApi.getTodos();
@@ -47,8 +51,7 @@ const App = () => {
 
   const modalHandlers = {
     handleRenderFlag,
-    selectedTodoId,
-    setSelectedTodoId,
+    handleSelectedTodoId,
     handleModalVisibility,
   };
 
@@ -56,10 +59,12 @@ const App = () => {
     handlers: modalHandlers,
     ref: modalRef,
     isModalVisible,
+    selectedTodoId,
   });
 
   const columnsHandlers = {
-    setSelectedTodoId,
+    handleRenderFlag,
+    handleSelectedTodoId,
     handleModalVisibility,
   };
 

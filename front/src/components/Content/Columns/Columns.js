@@ -41,7 +41,7 @@ const Columns = ({ columns, todos, handlers }) => {
     };
 
     await todoApi.createTodo(requestBody);
-    handleRenderFlag();
+    handlers.handleRenderFlag();
   };
 
   const createColumnElement = (column) => {

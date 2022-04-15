@@ -2,7 +2,7 @@ import peact from "../../../core/peact";
 import styles from "./card.module.css";
 
 const Card = ({ todo, handlers, ref }) => {
-  const { setSelectedTodoId, handleModalVisibility, handleDoubleClickCard } =
+  const { handleSelectedTodoId, handleModalVisibility, handleDoubleClickCard } =
     handlers;
 
   const handleXButtonHover = ({ target }) => {
@@ -16,7 +16,7 @@ const Card = ({ todo, handlers, ref }) => {
   const onXButtonClick = ({ target }) => {
     const todoId = target.closest(`.${styles.card}`).id;
     handleModalVisibility();
-    setSelectedTodoId(todoId);
+    handleSelectedTodoId(todoId);
   };
 
   const xButtonImgTemplate = `

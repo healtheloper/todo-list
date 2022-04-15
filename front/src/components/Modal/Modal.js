@@ -2,26 +2,22 @@ import peact from "../../core/peact";
 import todoApi from "../../service/todoApi";
 import styles from "./modal.module.css";
 
-const Modal = ({ handlers, isModalVisible, ref }) => {
-  const {
-    handleRenderFlag,
-    selectedTodoId,
-    setSelectedTodoId,
-    handleModalVisibility,
-  } = handlers;
+const Modal = ({ handlers, isModalVisible, selectedTodoId, ref }) => {
+  const { handleRenderFlag, handleSelectedTodoId, handleModalVisibility } =
+    handlers;
 
   const deleteTodo = async () => {
     const deletedTodo = await todoApi.deleteTodo(selectedTodoId);
 
     if (deletedTodo) {
       handleRenderFlag();
-      setSelectedTodoId(null);
+      handleSelectedTodoId(null);
     }
   };
 
   const onModalClick = () => {
     handleModalVisibility();
-    setSelectedTodoId(null);
+    handleSelectedTodoId(null);
   };
 
   const $modalPopupMessage = peact.createElement({
