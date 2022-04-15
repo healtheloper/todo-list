@@ -6,7 +6,7 @@ import cardStyles from "../Card/card.module.css";
 import CardWritable from "../CardWritable/CardWritable";
 import styles from "./cards.module.css";
 
-const getDataSortbyLatest = (data) => {
+const getSortedDatabyLatest = (data) => {
   return data.sort((a, b) => getISODateDiff(b.updatedAt, a.updatedAt));
 };
 
@@ -69,7 +69,7 @@ const Cards = ({ $newCard, todos, handlers }) => {
     });
   };
 
-  const todoElements = getDataSortbyLatest(todos).map(createCard);
+  const todoElements = getSortedDatabyLatest(todos).map(createCard);
 
   return peact.createElement({
     tag: "div",

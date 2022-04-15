@@ -58,9 +58,7 @@ const Modal = ({ handlers, isModalVisible, selectedTodoId, ref }) => {
 
   return peact.createElement({
     tag: "div",
-    className: isModalVisible
-      ? [styles.modalWrap, styles.visible]
-      : [styles.modalWrap],
+    className: [styles.modalWrap, ...(isModalVisible ? [styles.visible] : [])],
     child: [$modalPopup],
     attrs: {
       onClick: onModalClick,
