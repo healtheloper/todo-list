@@ -14,6 +14,10 @@ const ColumnHeader = ({ column, todos, toggleCardVisible }) => {
     hoverButton($deleteButton, styles.deleteButtonHover);
   };
 
+  const handleClickPlusButton = () => {
+    toggleCardVisible();
+  };
+
   const todosCount = todos.length;
   const columTitleTemplate = `<h2 class="${styles.title}">${column.title}</h2>`;
   const cardsCountTemplate = `<div class="${styles.count}">${todosCount}</div>`;
@@ -35,7 +39,7 @@ const ColumnHeader = ({ column, todos, toggleCardVisible }) => {
     attrs: {
       onMouseOver: handleHoverPlusButton,
       onMouseOut: handleHoverPlusButton,
-      onClick: toggleCardVisible,
+      onClick: handleClickPlusButton,
     },
     child: [plusButtonImgTemplate],
   });
