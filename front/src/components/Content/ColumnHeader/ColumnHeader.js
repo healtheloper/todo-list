@@ -2,9 +2,16 @@ import peact from "../../../core/peact";
 import styles from "./columnHeader.module.css";
 
 const ColumnHeader = ({ column, todos, handleNewCardVisibility }) => {
-  const handleButtonHover = (target, buttonName) => {
-    const targetButton = target.closest(`.${styles[buttonName]}`) || target;
-    targetButton.classList.toggle(styles[`${buttonName}Over`]);
+  const hoverButton = ($button, className) => {
+    $button.classList.toggle(className);
+  };
+
+  const handleHoverPlusButton = () => {
+    hoverButton($plusButton, styles.plusButtonHover);
+  };
+
+  const handleHoverDeleteButton = () => {
+    hoverButton($deleteButton, styles.deleteButtonHover);
   };
 
   const todosCount = todos.length;
@@ -26,8 +33,8 @@ const ColumnHeader = ({ column, todos, handleNewCardVisibility }) => {
     tag: "div",
     className: styles.plusButton,
     attrs: {
-      onMouseOver: ({ target }) => handleButtonHover(target, "plusButton"),
-      onMouseOut: ({ target }) => handleButtonHover(target, "plusButton"),
+      onMouseOver: handleHoverPlusButton,
+      onMouseOut: handleHoverPlusButton,
       onClick: handleNewCardVisibility,
     },
     child: [plusButtonImgTemplate],
@@ -40,10 +47,10 @@ const ColumnHeader = ({ column, todos, handleNewCardVisibility }) => {
 
   const $deleteButton = peact.createElement({
     tag: "div",
-    className: styles.xButton,
+    className: styles.deleteButton,
     attrs: {
-      onMouseOver: ({ target }) => handleButtonHover(target, "xButton"),
-      onMouseOut: ({ target }) => handleButtonHover(target, "xButton"),
+      onMouseOver: handleHoverDeleteButton,
+      onMouseOut: handleHoverDeleteButton,
     },
     child: [deleteButtonImgTemplate],
   });
