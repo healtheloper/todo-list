@@ -27,7 +27,7 @@ const CardWritable = ({
     const isInputActive = !$addButton.classList.contains(styles.deactiveButton);
     if (isInputEmpty && isInputActive) {
       deactivateButton($addButton, styles.deactiveButton);
-    } else if (!isInputActive) {
+    } else if (!isInputEmpty && !isInputActive) {
       activateButton($addButton, styles.deactiveButton);
     }
   };
