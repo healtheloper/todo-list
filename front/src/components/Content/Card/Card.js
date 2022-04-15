@@ -1,12 +1,9 @@
 import peact from "../../../core/peact";
-import Modal from "../../Modal/Modal";
 import styles from "./card.module.css";
 
-const Card = ({ todo, handleRenderFlag, handleDoubleClickCard, ref }) => {
-  const showAlert = ({ todoId }) => {
-    const $body = document.querySelector("body");
-    $body.append(Modal({ todoId, handleRenderFlag }));
-  };
+const Card = ({ todo, handlers, ref }) => {
+  const { setSelectedTodoId, handleModalVisibility, handleDoubleClickCard } =
+    handlers;
 
   const handleXButtonHover = ({ target }) => {
     const $path = target.querySelector(`.${styles.path}`) || target;
@@ -18,10 +15,11 @@ const Card = ({ todo, handleRenderFlag, handleDoubleClickCard, ref }) => {
 
   const onXButtonClick = ({ target }) => {
     const todoId = target.closest(`.${styles.card}`).id;
-    showAlert({ todoId });
+    handleModalVisibility();
+    setSelectedTodoId(todoId);
   };
 
-  const xButtonInnerHTML = `
+  const xButtonImgTemplate = `
     <svg
     width="12"
     height="12"
@@ -50,7 +48,7 @@ const Card = ({ todo, handleRenderFlag, handleDoubleClickCard, ref }) => {
       onMouseOver: handleXButtonHover,
       onMouseOut: handleXButtonHover,
     },
-    child: [xButtonInnerHTML],
+    child: [xButtonImgTemplate],
   });
 
   const $cardHeaderArea = peact.createElement({

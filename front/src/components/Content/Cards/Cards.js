@@ -10,7 +10,9 @@ const getDataSortbyLatest = (data) => {
   return data.sort((a, b) => getISODateDiff(b.updatedAt, a.updatedAt));
 };
 
-const Cards = ({ $newCard, todos, handleRenderFlag }) => {
+const Cards = ({ $newCard, todos, handlers }) => {
+  const { handleRenderFlag } = handlers;
+
   const cardsRef = peact.useRef();
 
   const createCard = (todo) => {
@@ -62,9 +64,8 @@ const Cards = ({ $newCard, todos, handleRenderFlag }) => {
 
     return Card({
       todo,
-      handleRenderFlag,
-      handleDoubleClickCard,
       ref: cardRef,
+      handlers: { ...handlers, handleDoubleClickCard },
     });
   };
 

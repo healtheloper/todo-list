@@ -2,25 +2,19 @@ import peact from "../../core/peact";
 import todoApi from "../../service/todoApi";
 import styles from "./modal.module.css";
 
-const Modal = ({ todoId, handleRenderFlag }) => {
-  const hideAlert = () => {
-    const $body = document.querySelector("body");
-    const $alert = $body.querySelector(`.${styles.modalWrap}`);
-    $body.removeChild($alert);
-  };
-
-  const onModalClick = ({ target }) => {
-    if (target.classList.contains(styles.modalWrap)) {
-      hideAlert();
-    }
-  };
+const Modal = ({ handlers, isModalVisible, ref }) => {
+  const { handleRenderFlag, selectedTodoId, handleModalVisibility } = handlers;
 
   const deleteTodo = async () => {
-    const deletedTodo = await todoApi.deleteTodo(todoId);
+    const deletedTodo = await todoApi.deleteTodo(selectedTodoId);
 
     if (deletedTodo) {
       handleRenderFlag();
     }
+  };
+
+  const onModalClick = () => {
+    handleModalVisibility();
   };
 
   const $modalPopupMessage = peact.createElement({
@@ -33,7 +27,7 @@ const Modal = ({ todoId, handleRenderFlag }) => {
     tag: "button",
     className: styles.cancelButton,
     attrs: {
-      onClick: hideAlert,
+      onClick: handleModalVisibility,
     },
     child: ["취소"],
   });
@@ -61,11 +55,14 @@ const Modal = ({ todoId, handleRenderFlag }) => {
 
   return peact.createElement({
     tag: "div",
-    className: styles.modalWrap,
+    className: isModalVisible
+      ? [styles.modalWrap, styles.visible]
+      : [styles.modalWrap],
     child: [$modalPopup],
     attrs: {
       onClick: onModalClick,
     },
+    ref,
   });
 };
 
